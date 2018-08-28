@@ -3,6 +3,8 @@ package ir.adicom.app.mymoney.register;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import ir.adicom.app.mymoney.R;
+
 public class RegisterActivity extends AppCompatActivity {
 
     @Override

@@ -1,8 +1,8 @@
 package ir.adicom.app.mymoney.login;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import ir.adicom.app.mymoney.R;
 

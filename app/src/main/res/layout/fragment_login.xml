@@ -1,13 +1,58 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.adicom.app.mymoney.login.LoginFragment">
+    android:orientation="vertical"
+    android:background="#F8BBD0"
+    android:padding="40dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/username"
+        android:gravity="right"
+        android:drawableRight="@mipmap/account"
+        android:hint="نام کاربری"
+        android:layout_marginTop="170dp"
+        android:textColor="#FFF"
+        android:paddingRight="0dp"
+        android:drawablePadding="5dp"
+        android:textColorHint="#999"/>
 
-</FrameLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password"
+        android:gravity="right"
+        android:drawableRight="@mipmap/lock"
+        android:hint="رمز عبور"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFF"
+        android:paddingRight="0dp"
+        android:drawablePadding="5dp"
+        android:textColorHint="#999"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="ورود"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:onClick="checkLogin"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Forgot password?"
+        android:id="@+id/textView3"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:textColor="#FFF"
+        />
+
+</LinearLayout>

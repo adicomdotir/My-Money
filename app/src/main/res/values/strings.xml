@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">MyMoney</string>
+    <string name="app_name">پول من</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_view_header_title">My Money</string>
+    <string name="login_text">ورود</string>
 </resources>
