@@ -10,10 +10,16 @@ import ir.adicom.app.mymoney.BaseView;
 
 public interface LoginContract {
     interface View extends BaseView<Presenter> {
+        void showRegisterScreen();
 
+        void showError(String message);
+
+        void loginSucces();
     }
 
     interface Presenter extends BasePresenter {
+        void clickRegisterBtn();
 
+        void clickLoginBtn(String username, String password);
     }
 }
