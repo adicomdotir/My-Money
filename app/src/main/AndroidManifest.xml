@@ -3,10 +3,10 @@
     package="ir.adicom.app.mymoney">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".App"
         android:theme="@style/AppTheme">
         <activity android:name=".login.LoginActivity">
             <intent-filter>
@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".expenses.ExpensesActivity"></activity>
     </application>
 
 </manifest>
