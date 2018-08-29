@@ -11,9 +11,12 @@ import ir.adicom.app.mymoney.BaseView;
 public interface RegisterContract {
     interface View extends BaseView<Presenter> {
 
+        void successRegister();
+
+        void failedRegister(String message);
     }
 
     interface Presenter extends BasePresenter {
-
+        void submitRegister(String email, String username, String password);
     }
 }
