@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.register.RegisterActivity;
 
@@ -23,9 +23,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private EditText etUsername, etPassword;
     private Button btnLogin, btnRegister;
     private LoginContract.Presenter mLoginPresenter;
+    private CheckBox chkSaveLogin;
 
     public LoginFragment() { }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         super.onViewCreated(view, savedInstanceState);
 
         initView(view);
+        mLoginPresenter.isSaveLogin(getContext());
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +49,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mLoginPresenter.saveLogin(getContext(), chkSaveLogin.isChecked())) {
+                    mLoginPresenter.saveLoginInfo(getContext(), etUsername.getText().toString(), etPassword.getText().toString());
+                }
                 mLoginPresenter.clickLoginBtn(etUsername.getText().toString(), etPassword.getText().toString());
             }
         });
@@ -58,6 +62,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         etPassword = (EditText) view.findViewById(R.id.et_password);
         btnLogin = (Button) view.findViewById(R.id.btn_login);
         btnRegister = (Button) view.findViewById(R.id.btn_register);
+        chkSaveLogin = (CheckBox) view.findViewById(R.id.chk_save_login);
     }
 
     @Override
@@ -80,5 +85,12 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void loginSucces() {
 //        Intent intent = new Intent(getContext(), HomeActivity.class);
 //        startActivity(intent);
+    }
+
+    @Override
+    public void initLoginInfo(String username, String password) {
+        etUsername.setText(username);
+        etPassword.setText(password);
+        chkSaveLogin.setChecked(true);
     }
 }
