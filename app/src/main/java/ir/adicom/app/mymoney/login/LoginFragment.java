@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import ir.adicom.app.mymoney.R;
+import ir.adicom.app.mymoney.expenses.ExpensesActivity;
 import ir.adicom.app.mymoney.register.RegisterActivity;
 
 /**
@@ -83,8 +84,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void loginSucces() {
-//        Intent intent = new Intent(getContext(), HomeActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(getContext(), ExpensesActivity.class);
+        startActivity(intent);
     }
 
     @Override

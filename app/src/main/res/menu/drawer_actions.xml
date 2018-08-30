@@ -4,9 +4,5 @@
     <item
         android:id="@+id/list_navigation_menu_item"
         android:icon="@android:drawable/btn_dropdown"
-        android:title="string/list_title" />
-    <item
-        android:id="@+id/statistics_navigation_menu_item"
-        android:icon="@android:drawable/btn_star"
-        android:title="string/statistics_title" />
+        android:title="دسته بندی" />
 </menu>

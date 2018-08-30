@@ -32,6 +32,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void clickLoginBtn(String username, String password) {
         if (username.length() == 0 || password.length() == 0) {
             mLoginView.showError("نام کاربری یا رمز عبور وارد نشده است!");
+        } else {
+            mLoginView.loginSucces();
         }
     }
 
