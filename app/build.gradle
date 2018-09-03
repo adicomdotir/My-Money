@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2" // For Laptop
-//     buildToolsVersion "23.0.3"
+//    buildToolsVersion "23.0.2" // For Laptop
+     buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "ir.adicom.app.mymoney"
         minSdkVersion 17
@@ -44,5 +45,6 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'io.github.inflationx:calligraphy3:3.0.0'
     compile 'io.github.inflationx:viewpump:1.0.0'
+    compile 'org.greenrobot:greendao:3.2.2' // add library
     testCompile 'junit:junit:4.12'
 }
