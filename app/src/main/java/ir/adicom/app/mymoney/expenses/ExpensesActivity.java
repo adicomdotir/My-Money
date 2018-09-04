@@ -12,9 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.categories.CategoriesActivity;
+import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
+import ir.adicom.app.mymoney.data.source.local.ExpensesLocalDataSource;
 import ir.adicom.app.mymoney.util.ActivityUtils;
+import ir.adicom.app.mymoney.util.AppExecutors;
 
 public class ExpensesActivity extends AppCompatActivity {
 
@@ -47,7 +51,9 @@ public class ExpensesActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), expensesFragment, R.id.contentFrame);
         }
 
-        expensesPresenter = new ExpensesPresenter(expensesFragment);
+        AppExecutors appExecutors = new AppExecutors();
+        ExpensesDataSource cds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
+        expensesPresenter = new ExpensesPresenter(expensesFragment, cds);
     }
 
     @Override
