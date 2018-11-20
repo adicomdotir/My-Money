@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.adicom.app.mymoney.R;
+import ir.adicom.app.mymoney.categories.CategoriesContract;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddEditCategoryFragment extends Fragment {
+public class AddEditCategoryFragment extends Fragment implements AddEditCategoryContract.View {
 
 
     public AddEditCategoryFragment() {
@@ -27,4 +28,8 @@ public class AddEditCategoryFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_add_edit_category, container, false);
     }
 
+    @Override
+    public void setPresenter(CategoriesContract.Presenter presenter) {
+
+    }
 }
