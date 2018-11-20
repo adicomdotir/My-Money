@@ -1,14 +1,14 @@
-package ir.adicom.app.mymoney.addeditcategory;
+package ir.adicom.app.mymoney.addeditexpense;
 
 import ir.adicom.app.mymoney.BasePresenter;
 import ir.adicom.app.mymoney.BaseView;
 
 /**
- * AddEditCategoryContract
+ * AddEditExpenseContract
  * Created by Y.P on 20/11/2018.
  */
 
-public interface AddEditCategoryContract {
+public class AddEditExpenseContract {
     interface View extends BaseView<Presenter> {
 
     }

@@ -12,7 +12,7 @@ import ir.adicom.app.mymoney.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddEditExpenseFragment extends Fragment {
+public class AddEditExpenseFragment extends Fragment implements AddEditExpenseContract.View {
 
 
     public AddEditExpenseFragment() {
@@ -27,4 +27,8 @@ public class AddEditExpenseFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_add_edit_expense, container, false);
     }
 
+    @Override
+    public void setPresenter(AddEditExpenseContract.Presenter presenter) {
+
+    }
 }
