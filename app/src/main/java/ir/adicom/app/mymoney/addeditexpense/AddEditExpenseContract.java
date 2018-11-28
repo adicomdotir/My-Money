@@ -8,12 +8,14 @@ import ir.adicom.app.mymoney.BaseView;
  * Created by Y.P on 20/11/2018.
  */
 
-public class AddEditExpenseContract {
+interface AddEditExpenseContract {
     interface View extends BaseView<Presenter> {
+        void showEmptyExpenseError();
 
+        void showExpensesList();
     }
 
     interface Presenter extends BasePresenter {
-
+        void saveExpense(String title);
     }
 }

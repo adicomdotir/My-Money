@@ -13,7 +13,7 @@ import ir.adicom.app.mymoney.R;
  * A simple {@link Fragment} subclass.
  */
 public class AddEditExpenseFragment extends Fragment implements AddEditExpenseContract.View {
-
+    private AddEditExpenseContract.Presenter mPresenter;
 
     public AddEditExpenseFragment() {
         // Required empty public constructor
@@ -29,6 +29,16 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
 
     @Override
     public void setPresenter(AddEditExpenseContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void showEmptyExpenseError() {
+
+    }
+
+    @Override
+    public void showExpensesList() {
 
     }
 }
