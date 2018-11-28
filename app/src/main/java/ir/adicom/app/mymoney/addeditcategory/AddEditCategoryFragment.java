@@ -15,6 +15,7 @@ import ir.adicom.app.mymoney.categories.CategoriesContract;
  */
 public class AddEditCategoryFragment extends Fragment implements AddEditCategoryContract.View {
 
+    private AddEditCategoryContract.Presenter mPresenter;
 
     public AddEditCategoryFragment() {
         // Required empty public constructor
@@ -29,7 +30,17 @@ public class AddEditCategoryFragment extends Fragment implements AddEditCategory
     }
 
     @Override
-    public void setPresenter(CategoriesContract.Presenter presenter) {
+    public void setPresenter(AddEditCategoryContract.Presenter presenter) {
+        this.mPresenter = presenter;
+    }
+
+    @Override
+    public void showEmptyCategoryError() {
+
+    }
+
+    @Override
+    public void showCategoriesList() {
 
     }
 }

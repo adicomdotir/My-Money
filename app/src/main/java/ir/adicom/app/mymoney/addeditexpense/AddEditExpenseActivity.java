@@ -36,11 +36,13 @@ public class AddEditExpenseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
+        assert ab != null;
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
         // Set up the navigation drawer.
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert mDrawerLayout != null;
         mDrawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
@@ -55,7 +57,7 @@ public class AddEditExpenseActivity extends AppCompatActivity {
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
-        addEditExpensePresenter = new AddEditExpensePresenter(categoriesFragment, cds);
+//        addEditExpensePresenter = new AddEditExpensePresenter(categoriesFragment, cds);
     }
 
     @Override

@@ -8,12 +8,14 @@ import ir.adicom.app.mymoney.BaseView;
  * Created by Y.P on 20/11/2018.
  */
 
-public interface AddEditCategoryContract {
+interface AddEditCategoryContract {
     interface View extends BaseView<Presenter> {
+        void showEmptyCategoryError();
 
+        void showCategoriesList();
     }
 
     interface Presenter extends BasePresenter {
-
+        void saveCategory(String title);
     }
 }
