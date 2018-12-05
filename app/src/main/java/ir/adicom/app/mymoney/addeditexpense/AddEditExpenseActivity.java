@@ -50,15 +50,15 @@ public class AddEditExpenseActivity extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
-        CategoriesFragment categoriesFragment = (CategoriesFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (categoriesFragment == null) {
-            categoriesFragment = new CategoriesFragment();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), categoriesFragment, R.id.contentFrame);
+        AddEditExpenseFragment addEditExpenseFragment = (AddEditExpenseFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (addEditExpenseFragment == null) {
+            addEditExpenseFragment = new AddEditExpenseFragment();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), addEditExpenseFragment, R.id.contentFrame);
         }
 
         AppExecutors appExecutors = new AppExecutors();
-        CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
-//        addEditExpensePresenter = new AddEditExpensePresenter(categoriesFragment, cds);
+//        CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
+        addEditExpensePresenter = new AddEditExpensePresenter(0L, addEditExpenseFragment);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package ir.adicom.app.mymoney.addeditcategory;
 
 import android.support.annotation.Nullable;
-
 import ir.adicom.app.mymoney.data.Category;
 
 /**
@@ -10,11 +9,14 @@ import ir.adicom.app.mymoney.data.Category;
  */
 
 public class AddEditCategoryPresenter implements AddEditCategoryContract.Presenter {
+    private  AddEditCategoryContract.View mView;
     @Nullable
     private Long mCategoryId;
 
-    public AddEditCategoryPresenter(@Nullable Long categoryId) {
+    public AddEditCategoryPresenter(@Nullable Long categoryId, AddEditCategoryContract.View view) {
         mCategoryId = categoryId;
+        mView = view;
+        mView.setPresenter(this);
     }
 
     @Override

@@ -2,12 +2,12 @@ package ir.adicom.app.mymoney.addeditcategory;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -15,8 +15,6 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.categories.CategoriesActivity;
-import ir.adicom.app.mymoney.categories.CategoriesFragment;
-import ir.adicom.app.mymoney.categories.CategoriesPresenter;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
 import ir.adicom.app.mymoney.util.ActivityUtils;
@@ -50,15 +48,15 @@ public class AddEditCategoryActivity extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
-        CategoriesFragment categoriesFragment = (CategoriesFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (categoriesFragment == null) {
-            categoriesFragment = new CategoriesFragment();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), categoriesFragment, R.id.contentFrame);
+        AddEditCategoryFragment addEditCategoryFragment = (AddEditCategoryFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (addEditCategoryFragment == null) {
+            addEditCategoryFragment = new AddEditCategoryFragment();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), addEditCategoryFragment, R.id.contentFrame);
         }
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
-//        addEditCategoryPresenter = new AddEditCategoryPresenter(categoriesFragment, cds);
+        addEditCategoryPresenter = new AddEditCategoryPresenter(0L, addEditCategoryFragment);
     }
 
     @Override

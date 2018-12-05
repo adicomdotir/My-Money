@@ -51,7 +51,7 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
         super.onViewCreated(view, savedInstanceState);
         lvCategories = (ListView) view.findViewById(R.id.categories_list);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_add_category);
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_add_category);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

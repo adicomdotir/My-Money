@@ -50,7 +50,7 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
         super.onViewCreated(view, savedInstanceState);
         lvExpenses = (ListView) view.findViewById(R.id.expenses_list);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_add_expense);
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_add_expense);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
