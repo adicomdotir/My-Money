@@ -1,8 +1,10 @@
 package ir.adicom.app.mymoney.categories;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.adicom.app.mymoney.R;
+import ir.adicom.app.mymoney.addeditcategory.AddEditCategoryActivity;
 import ir.adicom.app.mymoney.data.Category;
 
 /**
@@ -47,6 +50,14 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         lvCategories = (ListView) view.findViewById(R.id.categories_list);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_add_category);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.addNewCategory();
+            }
+        });
     }
 
     @Override
@@ -70,6 +81,12 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     public void showCategories(List<Category> categories) {
         mCategoriesAdapter.replaceData(categories);
         lvCategories.setAdapter(mCategoriesAdapter);
+    }
+
+    @Override
+    public void showAddCategory() {
+        Intent intent = new Intent(getContext(), AddEditCategoryActivity.class);
+        startActivityForResult(intent, AddEditCategoryActivity.REQUEST_ADD_CATEGORY);
     }
 
     @Override

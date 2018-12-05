@@ -24,6 +24,7 @@ import ir.adicom.app.mymoney.util.AppExecutors;
 
 public class AddEditCategoryActivity extends AppCompatActivity {
 
+    public static final int REQUEST_ADD_CATEGORY = 1;
     private AddEditCategoryPresenter addEditCategoryPresenter;
     private DrawerLayout mDrawerLayout;
 
