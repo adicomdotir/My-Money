@@ -16,9 +16,12 @@ public interface ExpensesContract {
         void showProgressBar();
 
         void showExpenses(List<Expense> expenses);
+    
+        void showAddExpense();
     }
 
     interface Presenter extends BasePresenter {
 
+        void addNewExpense();
     }
 }

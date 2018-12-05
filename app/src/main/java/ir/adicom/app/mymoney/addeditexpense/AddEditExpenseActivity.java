@@ -24,6 +24,7 @@ import ir.adicom.app.mymoney.util.AppExecutors;
 
 public class AddEditExpenseActivity extends AppCompatActivity {
 
+    public static final int REQUEST_ADD_EXPENSE = 1;
     private AddEditExpensePresenter addEditExpensePresenter;
     private DrawerLayout mDrawerLayout;
 

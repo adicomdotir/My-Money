@@ -1,8 +1,11 @@
 package ir.adicom.app.mymoney.expenses;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.adicom.app.mymoney.R;
+import ir.adicom.app.mymoney.addeditcategory.AddEditCategoryActivity;
+import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseActivity;
 import ir.adicom.app.mymoney.data.Expense;
 
 /**
@@ -44,6 +49,14 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         lvExpenses = (ListView) view.findViewById(R.id.expenses_list);
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_add_expense);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mExpensesPresenter.addNewExpense();
+            }
+        });
     }
 
     @Override
@@ -72,6 +85,12 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
     public void showExpenses(List<Expense> expenses) {
         mExpensesAdapter.replaceData(expenses);
         lvExpenses.setAdapter(mExpensesAdapter);
+    }
+
+    @Override
+    public void showAddExpense() {
+        Intent intent = new Intent(getContext(), AddEditExpenseActivity.class);
+        startActivityForResult(intent, AddEditExpenseActivity.REQUEST_ADD_EXPENSE);
     }
 
     private static class ExpensesAdapter extends BaseAdapter {

@@ -39,4 +39,9 @@ public class ExpensesPresenter implements ExpensesContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void addNewExpense() {
+        mExpensesView.showAddExpense();
+    }
 }
