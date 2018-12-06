@@ -34,4 +34,8 @@ public class Category {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public boolean isEmpty() {
+        return title == null || title.length() == 0;
+    }
 }

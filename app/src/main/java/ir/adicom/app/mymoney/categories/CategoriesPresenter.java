@@ -12,13 +12,13 @@ import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 
 public class CategoriesPresenter implements CategoriesContract.Presenter {
 
-    private CategoriesContract.View mCatergiresView;
+    private CategoriesContract.View mCategoriesView;
     private CategoriesDataSource mCategoriesDataSource;
 
     public CategoriesPresenter(CategoriesContract.View view, CategoriesDataSource cds) {
-        this.mCatergiresView = view;
+        this.mCategoriesView = view;
         this.mCategoriesDataSource = cds;
-        mCatergiresView.setPresenter(this);
+        mCategoriesView.setPresenter(this);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
         mCategoriesDataSource.getCategories(new CategoriesDataSource.LoadCategoriesCallback() {
             @Override
             public void onCategoriesLoaded(List<Category> categories) {
-                mCatergiresView.showCategories(categories);
+                mCategoriesView.showCategories(categories);
             }
 
             @Override
@@ -42,6 +42,6 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void addNewCategory() {
-        mCatergiresView.showAddCategory();
+        mCategoriesView.showAddCategory();
     }
 }

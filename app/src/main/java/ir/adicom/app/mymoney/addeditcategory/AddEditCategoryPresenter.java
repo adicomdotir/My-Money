@@ -2,6 +2,7 @@ package ir.adicom.app.mymoney.addeditcategory;
 
 import android.support.annotation.Nullable;
 import ir.adicom.app.mymoney.data.Category;
+import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 
 /**
  * AddEditCategoryPresenter
@@ -10,12 +11,14 @@ import ir.adicom.app.mymoney.data.Category;
 
 public class AddEditCategoryPresenter implements AddEditCategoryContract.Presenter {
     private  AddEditCategoryContract.View mView;
+    private CategoriesDataSource mCategoriesDataSource;
     @Nullable
     private Long mCategoryId;
 
-    public AddEditCategoryPresenter(@Nullable Long categoryId, AddEditCategoryContract.View view) {
+    public AddEditCategoryPresenter(@Nullable Long categoryId, AddEditCategoryContract.View view, CategoriesDataSource cds) {
         mCategoryId = categoryId;
         mView = view;
+        mCategoriesDataSource = cds;
         mView.setPresenter(this);
     }
 
@@ -40,12 +43,12 @@ public class AddEditCategoryPresenter implements AddEditCategoryContract.Present
     private void createCategory(String title) {
         Category newCategory = new Category();
         newCategory.setTitle(title);
-//        if (newCategory.isEmpty()) {
-//            mAddCategoryView.showEmptyCategoryError();
-//        } else {
-//            mCategorysRepository.saveCategory(newCategory);
-//            mAddCategoryView.showCategorysList();
-//        }
+        if (newCategory.isEmpty()) {
+            mView.showEmptyCategoryError();
+        } else {
+            mCategoriesDataSource.saveCategory(newCategory);
+            mView.showCategoriesList();
+        }
     }
 
     private void updateCategory(String title) {

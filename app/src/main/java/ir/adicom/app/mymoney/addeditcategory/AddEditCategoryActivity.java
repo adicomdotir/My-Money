@@ -56,7 +56,7 @@ public class AddEditCategoryActivity extends AppCompatActivity {
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
-        addEditCategoryPresenter = new AddEditCategoryPresenter(0L, addEditCategoryFragment);
+        addEditCategoryPresenter = new AddEditCategoryPresenter(0L, addEditCategoryFragment, cds);
     }
 
     @Override
