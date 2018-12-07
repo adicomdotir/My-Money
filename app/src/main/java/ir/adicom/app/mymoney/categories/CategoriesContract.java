@@ -1,5 +1,7 @@
 package ir.adicom.app.mymoney.categories;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import ir.adicom.app.mymoney.BasePresenter;
@@ -19,10 +21,14 @@ public interface CategoriesContract {
         void showCategories(List<Category> categories);
 
         void showAddCategory();
+
+        void showCategoryDetailsUi(Long categoryId);
     }
 
     interface Presenter extends BasePresenter {
 
         void addNewCategory();
+
+        void openCategoryDetail(@NonNull Category requestedCategory);
     }
 }

@@ -54,9 +54,12 @@ public class AddEditCategoryActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), addEditCategoryFragment, R.id.contentFrame);
         }
 
+        Long categoryId = getIntent().getLongExtra(AddEditCategoryFragment.ARGUMENT_EDIT_CATEGORY_ID, 0);
+        categoryId = categoryId == 0 ? null : categoryId;
+
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
-        addEditCategoryPresenter = new AddEditCategoryPresenter(0L, addEditCategoryFragment, cds);
+        addEditCategoryPresenter = new AddEditCategoryPresenter(categoryId, addEditCategoryFragment, cds);
     }
 
     @Override

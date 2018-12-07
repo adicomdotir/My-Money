@@ -65,7 +65,7 @@ public class CategoriesLocalDataSource implements CategoriesDataSource {
                     @Override
                     public void run() {
                         if (category != null) {
-                            callback.onCategoriesLoaded(category);
+                            callback.onCategoryLoaded(category);
                         } else {
                             callback.onDataNotAvailable();
                         }

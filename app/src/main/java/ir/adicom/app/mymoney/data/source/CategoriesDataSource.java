@@ -16,7 +16,7 @@ public interface CategoriesDataSource {
 
     interface GetCategoriesCallback {
 
-        void onCategoriesLoaded(Category category);
+        void onCategoryLoaded(Category category);
 
         void onDataNotAvailable();
     }

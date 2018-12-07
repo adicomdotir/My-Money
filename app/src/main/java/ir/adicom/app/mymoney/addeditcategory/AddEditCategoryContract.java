@@ -13,9 +13,12 @@ interface AddEditCategoryContract {
         void showEmptyCategoryError();
 
         void showCategoriesList();
+
+        void setTitle(String title);
     }
 
     interface Presenter extends BasePresenter {
         void saveCategory(String title);
+
     }
 }

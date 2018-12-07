@@ -1,5 +1,7 @@
 package ir.adicom.app.mymoney.categories;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import ir.adicom.app.mymoney.data.Category;
@@ -44,4 +46,11 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
     public void addNewCategory() {
         mCategoriesView.showAddCategory();
     }
+
+    @Override
+    public void openCategoryDetail(@NonNull Category requestedCategory) {
+        mCategoriesView.showCategoryDetailsUi(requestedCategory.getId());
+    }
+
+
 }

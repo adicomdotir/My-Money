@@ -18,6 +18,7 @@ import java.util.List;
 
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.addeditcategory.AddEditCategoryActivity;
+import ir.adicom.app.mymoney.addeditcategory.AddEditCategoryFragment;
 import ir.adicom.app.mymoney.data.Category;
 
 /**
@@ -32,7 +33,7 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     CategoryItemListener mItemListener = new CategoryItemListener() {
         @Override
         public void onCategoryClick(Category clickedCategory) {
-
+            mPresenter.openCategoryDetail(clickedCategory);
         }
     };
 
@@ -90,6 +91,13 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
     }
 
     @Override
+    public void showCategoryDetailsUi(Long categoryId) {
+        Intent intent = new Intent(getContext(), AddEditCategoryActivity.class);
+        intent.putExtra(AddEditCategoryFragment.ARGUMENT_EDIT_CATEGORY_ID, categoryId);
+        startActivity(intent);
+    }
+
+    @Override
     public void setPresenter(CategoriesContract.Presenter presenter) {
         this.mPresenter = presenter;
     }
@@ -142,6 +150,14 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
                     .append(category.getTitle());
             TextView tvItem = (TextView) rowView.findViewById(R.id.tv_item);
             tvItem.setText(sb);
+
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemListener.onCategoryClick(category);
+                }
+            });
+
             return rowView;
         }
     }

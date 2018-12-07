@@ -22,9 +22,16 @@ public class AddEditCategoryFragment extends Fragment implements AddEditCategory
 
     private AddEditCategoryContract.Presenter mPresenter;
     private TextView mTitle;
+    public static final String ARGUMENT_EDIT_CATEGORY_ID = "EDIT_CATEGORY_ID";
 
     public AddEditCategoryFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
     }
 
     @Override
@@ -64,5 +71,10 @@ public class AddEditCategoryFragment extends Fragment implements AddEditCategory
         getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
 
+    }
+
+    @Override
+    public void setTitle(String title) {
+        mTitle.setText(title);
     }
 }

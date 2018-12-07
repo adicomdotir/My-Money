@@ -9,7 +9,7 @@ import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
  * Created by Y.P on 20/11/2018.
  */
 
-public class AddEditCategoryPresenter implements AddEditCategoryContract.Presenter {
+public class AddEditCategoryPresenter implements AddEditCategoryContract.Presenter, CategoriesDataSource.GetCategoriesCallback {
     private  AddEditCategoryContract.View mView;
     private CategoriesDataSource mCategoriesDataSource;
     @Nullable
@@ -24,7 +24,9 @@ public class AddEditCategoryPresenter implements AddEditCategoryContract.Present
 
     @Override
     public void start() {
-
+        if (mCategoryId != null) {
+            mCategoriesDataSource.getCategory(mCategoryId, this);
+        }
     }
 
     @Override
@@ -55,7 +57,17 @@ public class AddEditCategoryPresenter implements AddEditCategoryContract.Present
         if (isNewCategory()) {
             throw new RuntimeException("updateCategory() was called but task is new.");
         }
-//        mCategorysRepository.saveCategory(new Category(mCategoryId,  title));
-//        mAddCategoryView.showCategorysList(); // After an edit, go back to the list.
+        mCategoriesDataSource.saveCategory(new Category(mCategoryId,  title));
+        mView.showCategoriesList(); // After an edit, go back to the list.
+    }
+
+    @Override
+    public void onCategoryLoaded(Category category) {
+        mView.setTitle(category.getTitle());
+    }
+
+    @Override
+    public void onDataNotAvailable() {
+
     }
 }
