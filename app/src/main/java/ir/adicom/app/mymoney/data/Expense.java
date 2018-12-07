@@ -15,21 +15,21 @@ import org.greenrobot.greendao.annotation.NotNull;
 @Entity
 public class Expense {
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
     private String title;
-    private long price;
-    private long categoryId;
+    private Long price;
+    private Long categoryId;
     @ToOne(joinProperty = "categoryId")
     private Category category;
-    private long date;
+    private Long date;
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
     /** Used for active entity operations. */
     @Generated(hash = 218583319)
     private transient ExpenseDao myDao;
-    @Generated(hash = 188952089)
-    public Expense(long id, String title, long price, long categoryId, long date) {
+    @Generated(hash = 464212628)
+    public Expense(Long id, String title, Long price, Long categoryId, Long date) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -39,10 +39,10 @@ public class Expense {
     @Generated(hash = 2061519627)
     public Expense() {
     }
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getTitle() {
@@ -51,30 +51,30 @@ public class Expense {
     public void setTitle(String title) {
         this.title = title;
     }
-    public long getPrice() {
+    public Long getPrice() {
         return this.price;
     }
-    public void setPrice(long price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
-    public long getCategoryId() {
+    public Long getCategoryId() {
         return this.categoryId;
     }
-    public void setCategoryId(long categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
-    public long getDate() {
+    public Long getDate() {
         return this.date;
     }
-    public void setDate(long date) {
+    public void setDate(Long date) {
         this.date = date;
     }
     @Generated(hash = 1372501278)
     private transient Long category__resolvedKey;
     /** To-one relationship, resolved on first access. */
-    @Generated(hash = 234631651)
+    @Generated(hash = 728129201)
     public Category getCategory() {
-        long __key = this.categoryId;
+        Long __key = this.categoryId;
         if (category__resolvedKey == null || !category__resolvedKey.equals(__key)) {
             final DaoSession daoSession = this.daoSession;
             if (daoSession == null) {
@@ -90,15 +90,11 @@ public class Expense {
         return category;
     }
     /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 1927364589)
-    public void setCategory(@NotNull Category category) {
-        if (category == null) {
-            throw new DaoException(
-                    "To-one property 'categoryId' has not-null constraint; cannot set to-one to null");
-        }
+    @Generated(hash = 1132018243)
+    public void setCategory(Category category) {
         synchronized (this) {
             this.category = category;
-            categoryId = category.getId();
+            categoryId = category == null ? null : category.getId();
             category__resolvedKey = categoryId;
         }
     }

@@ -12,20 +12,20 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class Category {
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
     private String title;
-    @Generated(hash = 1050788042)
-    public Category(long id, String title) {
+    @Generated(hash = 206903207)
+    public Category(Long id, String title) {
         this.id = id;
         this.title = title;
     }
     @Generated(hash = 1150634039)
     public Category() {
     }
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getTitle() {
@@ -36,6 +36,6 @@ public class Category {
     }
 
     public boolean isEmpty() {
-        return title == null || title.length() == 0;
+        return title == null || title.isEmpty();
     }
 }

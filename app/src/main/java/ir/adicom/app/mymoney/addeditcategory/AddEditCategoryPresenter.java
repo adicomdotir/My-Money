@@ -57,7 +57,7 @@ public class AddEditCategoryPresenter implements AddEditCategoryContract.Present
         if (isNewCategory()) {
             throw new RuntimeException("updateCategory() was called but task is new.");
         }
-        mCategoriesDataSource.saveCategory(new Category(mCategoryId,  title));
+        mCategoriesDataSource.updateCategory(new Category(mCategoryId,  title));
         mView.showCategoriesList(); // After an edit, go back to the list.
     }
 
