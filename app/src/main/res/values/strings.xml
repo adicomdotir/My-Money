@@ -9,4 +9,6 @@
     <string name="remember_text">نام کاربری و رمز عبور را ذخیره کن</string>
     <string name="title_hint">عنوان</string>
     <string name="empty_title_message">عنوان نباید خالی باشد</string>
+    <string name="expenses_text">هزینه ها</string>
+    <string name="categories_text">دسته ها</string>
 </resources>
