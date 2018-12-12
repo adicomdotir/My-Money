@@ -12,14 +12,14 @@ greendao {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2" // For Laptop
-//     buildToolsVersion "23.0.3"
+//    buildToolsVersion "23.0.2" // For Laptop
+     buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "ir.adicom.app.mymoney"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
-        versionName "v${versionMajor}.${versionMinor}.${versionPatch}"
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

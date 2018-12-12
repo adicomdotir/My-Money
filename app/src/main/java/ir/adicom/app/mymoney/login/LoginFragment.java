@@ -1,6 +1,7 @@
 package ir.adicom.app.mymoney.login;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import ir.adicom.app.mymoney.BuildConfig;
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.expenses.ExpensesActivity;
 import ir.adicom.app.mymoney.register.RegisterActivity;
@@ -25,6 +28,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private Button btnLogin, btnRegister;
     private LoginContract.Presenter mLoginPresenter;
     private CheckBox chkSaveLogin;
+    private TextView tvVersion;
 
     public LoginFragment() { }
 
@@ -64,6 +68,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         btnLogin = (Button) view.findViewById(R.id.btn_login);
         btnRegister = (Button) view.findViewById(R.id.btn_register);
         chkSaveLogin = (CheckBox) view.findViewById(R.id.chk_save_login);
+        tvVersion = (TextView) view.findViewById(R.id.tv_version);
+        tvVersion.setText(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
     }
 
     @Override
