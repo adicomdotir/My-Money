@@ -19,6 +19,7 @@ import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
 import ir.adicom.app.mymoney.data.source.local.ExpensesLocalDataSource;
+import ir.adicom.app.mymoney.expenses.ExpensesActivity;
 import ir.adicom.app.mymoney.expenses.ExpensesFragment;
 import ir.adicom.app.mymoney.expenses.ExpensesPresenter;
 import ir.adicom.app.mymoney.util.ActivityUtils;
@@ -84,8 +85,9 @@ public class CategoriesActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
-                            case R.id.list_navigation_menu_item:
-                                startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
+                            case R.id.list_navigation_menu_item_expenses:
+                                startActivity(new Intent(getApplicationContext(), ExpensesActivity.class));
+                                finish();
                                 break;
                             default:
                                 break;

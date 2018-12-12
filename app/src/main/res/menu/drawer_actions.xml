@@ -3,10 +3,10 @@
 
     <item
         android:id="@+id/list_navigation_menu_item_expenses"
-        android:icon="@android:drawable/btn_dropdown"
+        android:icon="@drawable/ic_expense"
         android:title="@string/expenses_text" />
     <item
         android:id="@+id/list_navigation_menu_item_categories"
-        android:icon="@android:drawable/btn_dropdown"
+        android:icon="@drawable/ic_categories"
         android:title="@string/categories_text" />
 </menu>

@@ -83,8 +83,9 @@ public class ExpensesActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
-                            case R.id.list_navigation_menu_item:
+                            case R.id.list_navigation_menu_item_categories:
                                 startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
+                                finish();
                                 break;
                             default:
                                 break;
