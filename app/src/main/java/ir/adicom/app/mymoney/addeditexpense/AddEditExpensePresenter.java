@@ -2,7 +2,14 @@ package ir.adicom.app.mymoney.addeditexpense;
 
 import android.support.annotation.Nullable;
 
+import java.util.List;
+
+import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.data.Category;
+import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
+import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
+import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
+import ir.adicom.app.mymoney.util.AppExecutors;
 
 /**
  * AddEditExpensePresenter
@@ -11,18 +18,22 @@ import ir.adicom.app.mymoney.data.Category;
 
 public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter {
     private  AddEditExpenseContract.View mView;
+    private CategoriesDataSource mCategoriesDataSource;
+    private ExpensesDataSource mExpensesDataSource;
     @Nullable
     private Long mExpenseId;
 
-    public AddEditExpensePresenter(@Nullable Long expenseId, AddEditExpenseContract.View view) {
+    public AddEditExpensePresenter(@Nullable Long expenseId, AddEditExpenseContract.View view, CategoriesDataSource cds, ExpensesDataSource eds) {
         this.mView = view;
         mExpenseId = expenseId;
+        mCategoriesDataSource = cds;
+        mExpensesDataSource = eds;
         mView.setPresenter(this);
     }
 
     @Override
     public void start() {
-
+        loadCategories();
     }
 
     @Override
@@ -32,6 +43,21 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
         } else {
             updateExpense(title);
         }
+    }
+
+    @Override
+    public void loadCategories() {
+        mCategoriesDataSource.getCategories(new CategoriesDataSource.LoadCategoriesCallback() {
+            @Override
+            public void onCategoriesLoaded(List<Category> categories) {
+                mView.setCategories(categories);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
     }
 
     private void updateExpense(String title) {

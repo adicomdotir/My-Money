@@ -2,23 +2,23 @@ package ir.adicom.app.mymoney.addeditexpense;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
-import ir.adicom.app.mymoney.addeditcategory.AddEditCategoryPresenter;
 import ir.adicom.app.mymoney.categories.CategoriesActivity;
-import ir.adicom.app.mymoney.categories.CategoriesFragment;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
+import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
+import ir.adicom.app.mymoney.data.source.local.ExpensesLocalDataSource;
 import ir.adicom.app.mymoney.util.ActivityUtils;
 import ir.adicom.app.mymoney.util.AppExecutors;
 
@@ -57,8 +57,9 @@ public class AddEditExpenseActivity extends AppCompatActivity {
         }
 
         AppExecutors appExecutors = new AppExecutors();
-//        CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
-        addEditExpensePresenter = new AddEditExpensePresenter(0L, addEditExpenseFragment);
+        CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
+        ExpensesDataSource eds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
+        addEditExpensePresenter = new AddEditExpensePresenter(0L, addEditExpenseFragment, cds, eds);
     }
 
     @Override

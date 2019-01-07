@@ -27,6 +27,15 @@
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
+        <EditText
+            android:id="@+id/et_expense_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/price_hint"
+            android:maxLines="1"
+            android:inputType="number"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
     </LinearLayout>
 
 </LinearLayout>
