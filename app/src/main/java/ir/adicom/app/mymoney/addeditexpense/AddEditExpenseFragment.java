@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.data.Category;
 
@@ -29,6 +31,7 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
     private Spinner catSpinner;
     private EditText mTitle;
     private EditText mPrice;
+    private List<Category> mCategories;
 
     public AddEditExpenseFragment() {
         // Required empty public constructor
@@ -57,8 +60,10 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
             public void onClick(View v) {
                 String title = mTitle.getText().toString();
                 Long price = Long.parseLong(mPrice.getText().toString());
-                Long categoryId = 0L;
-                mPresenter.saveExpense(title, categoryId, price);
+
+                // TODO: 1/22/19 Get categoryId from spinner
+                Category category = mCategories.get((int) catSpinner.getSelectedItemId());
+                mPresenter.saveExpense(title, category.getId(), price);
             }
         });
     }
@@ -85,6 +90,7 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
     public void setCategories(List<Category> categories) {
         // TODO: 1/7/19 change this bad smells
         List<String> list = new ArrayList<>();
+        mCategories = categories;
         for (Category c: categories) {
             list.add(c.getTitle());
         }

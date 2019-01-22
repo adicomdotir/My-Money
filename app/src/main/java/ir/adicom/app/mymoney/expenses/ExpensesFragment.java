@@ -140,8 +140,8 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
             sb.append(expense.getId()).append("\n")
                     .append(expense.getTitle()).append("\n")
                     .append(expense.getPrice()).append("\n")
-                    .append(expense.getDate()).append("\n");
-//                    .append(expense.getCategory().getTitle());
+                    .append(expense.getDate()).append("\n")
+                    .append(expense.getCategoryId());
             TextView tvItem = (TextView) rowView.findViewById(R.id.tv_item);
             tvItem.setText(sb);
             return rowView;
