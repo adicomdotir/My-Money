@@ -131,6 +131,14 @@ public class Expense {
         }
         myDao.update(this);
     }
+    public boolean isEmpty() {
+        if(title == null || title.isEmpty()) return true;
+        if(price == null) return true;
+        if(categoryId == null) return true;
+        if(date == null) return true;
+
+        return false;
+    }
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1159305667)
     public void __setDaoSession(DaoSession daoSession) {

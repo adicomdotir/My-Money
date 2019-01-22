@@ -6,6 +6,7 @@ import java.util.List;
 
 import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.data.Category;
+import ir.adicom.app.mymoney.data.Expense;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
@@ -37,11 +38,11 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
     }
 
     @Override
-    public void saveExpense(String title) {
+    public void saveExpense(String title, Long categoryId, Long price) {
         if (isExpenseNew()) {
-            createExpense(title);
+            createExpense(title, categoryId, price);
         } else {
-            updateExpense(title);
+            updateExpense(title, categoryId, price);
         }
     }
 
@@ -60,25 +61,28 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
         });
     }
 
-    private void updateExpense(String title) {
-        Category newCategory = new Category();
-        newCategory.setTitle(title);
+    private void updateExpense(String title, Long categoryId, Long price) {
+        Expense newExpense = new Expense();
+        newExpense.setTitle(title);
+        newExpense.setCategoryId(categoryId);
+        newExpense.setPrice(price);
+        newExpense.setDate(System.currentTimeMillis());
         // Todo: updateExpense is incomplete
-//        if (newCategory.isEmpty()) {
-//            mAddCategoryView.showEmptyCategoryError();
-//        } else {
-//            mCategorysRepository.saveCategory(newCategory);
-//            mAddCategoryView.showCategorysList();
-//        }
+        if (newExpense.isEmpty()) {
+            mView.showEmptyExpenseError();
+        } else {
+            mExpensesDataSource.saveExpense(newExpense);
+            mView.showExpensesList();
+        }
     }
 
-    private void createExpense(String title) {
+    private void createExpense(String title, Long categoryId, Long price) {
         if (isExpenseNew()) {
-            throw new RuntimeException("updateCategory() was called but task is new.");
+            throw new RuntimeException("updateExpense() was called but expense is new.");
         }
         // Todo: createExpense is incomplete
-//        mCategorysRepository.saveCategory(new Category(mCategoryId,  title));
-//        mAddCategoryView.showCategorysList(); // After an edit, go back to the list.
+        mExpensesDataSource.saveExpense(new Expense(mExpenseId,  title, categoryId, price, System.currentTimeMillis()));
+        mView.showExpensesList(); // After an edit, go back to the list.
     }
 
     public boolean isExpenseNew() {
