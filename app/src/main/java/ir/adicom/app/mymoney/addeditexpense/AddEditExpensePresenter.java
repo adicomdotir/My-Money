@@ -17,7 +17,7 @@ import ir.adicom.app.mymoney.util.AppExecutors;
  * Created by Y.P on 20/11/2018.
  */
 
-public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter {
+public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter, ExpensesDataSource.GetExpenseCallback {
     private  AddEditExpenseContract.View mView;
     private CategoriesDataSource mCategoriesDataSource;
     private ExpensesDataSource mExpensesDataSource;
@@ -35,6 +35,9 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
     @Override
     public void start() {
         loadCategories();
+        if (mExpenseId != null) {
+            mExpensesDataSource.getExpense(mExpenseId, this);
+        }
     }
 
     @Override
@@ -61,13 +64,13 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
         });
     }
 
-    private void updateExpense(String title, Long categoryId, Long price) {
+    private void createExpense(String title, Long categoryId, Long price) {
         Expense newExpense = new Expense();
         newExpense.setTitle(title);
         newExpense.setCategoryId(categoryId);
         newExpense.setPrice(price);
         newExpense.setDate(System.currentTimeMillis());
-        // Todo: updateExpense is incomplete
+
         if (newExpense.isEmpty()) {
             mView.showEmptyExpenseError();
         } else {
@@ -76,16 +79,26 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
         }
     }
 
-    private void createExpense(String title, Long categoryId, Long price) {
+    private void updateExpense(String title, Long categoryId, Long price) {
         if (isExpenseNew()) {
             throw new RuntimeException("updateExpense() was called but expense is new.");
         }
-        // Todo: createExpense is incomplete
+
         mExpensesDataSource.saveExpense(new Expense(mExpenseId,  title, categoryId, price, System.currentTimeMillis()));
         mView.showExpensesList(); // After an edit, go back to the list.
     }
 
     public boolean isExpenseNew() {
         return mExpenseId == null;
+    }
+
+    @Override
+    public void onExpenseLoaded(Expense expense) {
+
+    }
+
+    @Override
+    public void onDataNotAvailable() {
+
     }
 }

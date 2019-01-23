@@ -1,5 +1,7 @@
 package ir.adicom.app.mymoney.expenses;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import ir.adicom.app.mymoney.data.Expense;
@@ -43,5 +45,10 @@ public class ExpensesPresenter implements ExpensesContract.Presenter {
     @Override
     public void addNewExpense() {
         mExpensesView.showAddExpense();
+    }
+
+    @Override
+    public void openExpenseDetail(@NonNull Expense requestedExpense) {
+        mExpensesView.showExpenseDetailsUi(requestedExpense.getId());
     }
 }

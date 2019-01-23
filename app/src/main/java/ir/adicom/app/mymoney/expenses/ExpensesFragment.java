@@ -18,7 +18,11 @@ import java.util.List;
 
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.addeditcategory.AddEditCategoryActivity;
+import ir.adicom.app.mymoney.addeditcategory.AddEditCategoryFragment;
 import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseActivity;
+import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseFragment;
+import ir.adicom.app.mymoney.categories.CategoriesFragment;
+import ir.adicom.app.mymoney.data.Category;
 import ir.adicom.app.mymoney.data.Expense;
 
 /**
@@ -33,7 +37,7 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
     ExpenseItemListener mItemListener = new ExpenseItemListener() {
         @Override
         public void onExpenseClick(Expense clickedExpense) {
-            // presenter edit expense
+            mExpensesPresenter.openExpenseDetail(clickedExpense);
         }
     };
 
@@ -93,6 +97,13 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
         startActivityForResult(intent, AddEditExpenseActivity.REQUEST_ADD_EXPENSE);
     }
 
+    @Override
+    public void showExpenseDetailsUi(Long expenseId) {
+        Intent intent = new Intent(getContext(), AddEditExpenseActivity.class);
+        intent.putExtra(AddEditExpenseFragment.ARGUMENT_EDIT_EXPENSE_ID, expenseId);
+        startActivity(intent);
+    }
+
     private static class ExpensesAdapter extends BaseAdapter {
 
         private List<Expense> mExpenses;
@@ -144,6 +155,14 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
                     .append(expense.getCategoryId());
             TextView tvItem = (TextView) rowView.findViewById(R.id.tv_item);
             tvItem.setText(sb);
+
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemListener.onExpenseClick(expense);
+                }
+            });
+
             return rowView;
         }
     }

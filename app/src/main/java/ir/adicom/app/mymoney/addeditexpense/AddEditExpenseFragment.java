@@ -32,6 +32,7 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
     private EditText mTitle;
     private EditText mPrice;
     private List<Category> mCategories;
+    public static final String ARGUMENT_EDIT_EXPENSE_ID = "EDIT_EXPENSE_ID";
 
     public AddEditExpenseFragment() {
         // Required empty public constructor
@@ -53,15 +54,14 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        FloatingActionButton fab =
-                (FloatingActionButton) getActivity().findViewById(R.id.fab_add_expense);
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_add_expense);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String title = mTitle.getText().toString();
                 Long price = Long.parseLong(mPrice.getText().toString());
 
-                // TODO: 1/22/19 Get categoryId from spinner
+                // TODO: 1/22/19 Get categoryId from spinner => BAD SMELLS
                 Category category = mCategories.get((int) catSpinner.getSelectedItemId());
                 mPresenter.saveExpense(title, category.getId(), price);
             }

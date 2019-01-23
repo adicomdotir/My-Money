@@ -56,10 +56,13 @@ public class AddEditExpenseActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), addEditExpenseFragment, R.id.contentFrame);
         }
 
+        Long expenseId = getIntent().getLongExtra(AddEditExpenseFragment.ARGUMENT_EDIT_EXPENSE_ID, 0);
+        expenseId = expenseId == 0 ? null : expenseId;
+
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
         ExpensesDataSource eds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
-        addEditExpensePresenter = new AddEditExpensePresenter(0L, addEditExpenseFragment, cds, eds);
+        addEditExpensePresenter = new AddEditExpensePresenter(expenseId, addEditExpenseFragment, cds, eds);
     }
 
     @Override
