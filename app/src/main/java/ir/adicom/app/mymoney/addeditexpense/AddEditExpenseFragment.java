@@ -7,19 +7,16 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.data.Category;
 
@@ -97,5 +94,20 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catSpinner.setAdapter(dataAdapter);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        mTitle.setText(title);
+    }
+
+    @Override
+    public void setPrice(Long price) {
+        mPrice.setText("" + price);
+    }
+
+    @Override
+    public void setSelectionCategory(int id) {
+        catSpinner.setSelection(id);
     }
 }

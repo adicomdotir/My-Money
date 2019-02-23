@@ -18,6 +18,12 @@ interface AddEditExpenseContract {
         void showExpensesList();
 
         void setCategories(List<Category> categories);
+
+        void setTitle(String title);
+
+        void setPrice(Long price);
+
+        void setSelectionCategory(int id);
     }
 
     interface Presenter extends BasePresenter {

@@ -23,6 +23,7 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
     private ExpensesDataSource mExpensesDataSource;
     @Nullable
     private Long mExpenseId;
+    private List<Category> mCategories;
 
     public AddEditExpensePresenter(@Nullable Long expenseId, AddEditExpenseContract.View view, CategoriesDataSource cds, ExpensesDataSource eds) {
         this.mView = view;
@@ -35,9 +36,6 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
     @Override
     public void start() {
         loadCategories();
-        if (mExpenseId != null) {
-            mExpensesDataSource.getExpense(mExpenseId, this);
-        }
     }
 
     @Override
@@ -55,6 +53,10 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
             @Override
             public void onCategoriesLoaded(List<Category> categories) {
                 mView.setCategories(categories);
+                mCategories = categories;
+                if (mExpenseId != null) {
+                    mExpensesDataSource.getExpense(mExpenseId, AddEditExpensePresenter.this);
+                }
             }
 
             @Override
@@ -92,9 +94,21 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
         return mExpenseId == null;
     }
 
+    private int getSelectionCategoryId(Long categoryId) {
+        for (int i = 0; i < mCategories.size(); i++) {
+            Category cate = mCategories.get(i);
+            if (cate.getId() == categoryId) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     @Override
     public void onExpenseLoaded(Expense expense) {
-
+        mView.setTitle(expense.getTitle());
+        mView.setPrice(expense.getPrice());
+        mView.setSelectionCategory(getSelectionCategoryId(expense.getCategoryId()));
     }
 
     @Override
