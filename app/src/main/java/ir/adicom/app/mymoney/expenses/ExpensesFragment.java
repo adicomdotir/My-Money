@@ -13,7 +13,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import ir.adicom.app.mymoney.R;
@@ -24,6 +27,7 @@ import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseFragment;
 import ir.adicom.app.mymoney.categories.CategoriesFragment;
 import ir.adicom.app.mymoney.data.Category;
 import ir.adicom.app.mymoney.data.Expense;
+import ir.adicom.app.mymoney.util.CalendarTool;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -147,14 +151,22 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
             }
 
             final Expense expense = getItem(i);
-            StringBuilder sb = new StringBuilder();
-            sb.append(expense.getId()).append("\n")
-                    .append(expense.getTitle()).append("\n")
-                    .append(expense.getPrice()).append("\n")
-                    .append(expense.getDate()).append("\n")
-                    .append(expense.getCategoryId());
-            TextView tvItem = (TextView) rowView.findViewById(R.id.tv_item);
-            tvItem.setText(sb);
+            TextView tvTitle = (TextView) rowView.findViewById(R.id.tv_title);
+            TextView tvPrice = (TextView) rowView.findViewById(R.id.tv_price);
+            TextView tvDate = (TextView) rowView.findViewById(R.id.tv_date);
+            TextView tvCategory = (TextView) rowView.findViewById(R.id.tv_category);
+            tvTitle.setText("عنوان : " + expense.getTitle());
+            tvPrice.setText("هزینه :‌ " + expense.getPrice() + " تومان");
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(expense.getDate());
+            int mYear = calendar.get(Calendar.YEAR);
+            int mMonth = calendar.get(Calendar.MONTH);
+            int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+            CalendarTool calendarTool = new CalendarTool(mYear, mMonth + 1, mDay);
+            tvDate.setText("تاریخ :‌ " + calendarTool.getIranianDate() + "");
+
+            tvCategory.setText("دسته بندی : " + expense.getCategoryId() + "");
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override

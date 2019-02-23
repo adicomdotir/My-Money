@@ -145,11 +145,8 @@ public class CategoriesFragment extends Fragment implements CategoriesContract.V
             }
 
             final Category category = getItem(i);
-            StringBuilder sb = new StringBuilder();
-            sb.append(category.getId()).append("\n")
-                    .append(category.getTitle());
             TextView tvItem = (TextView) rowView.findViewById(R.id.tv_item);
-            tvItem.setText(sb);
+            tvItem.setText(category.getTitle());
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
