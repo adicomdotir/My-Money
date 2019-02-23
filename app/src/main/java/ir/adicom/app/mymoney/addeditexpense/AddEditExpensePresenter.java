@@ -86,7 +86,7 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
             throw new RuntimeException("updateExpense() was called but expense is new.");
         }
 
-        mExpensesDataSource.saveExpense(new Expense(mExpenseId,  title, categoryId, price, System.currentTimeMillis()));
+        mExpensesDataSource.updateExpense(new Expense(mExpenseId,  title, price, categoryId, System.currentTimeMillis()));
         mView.showExpensesList(); // After an edit, go back to the list.
     }
 
