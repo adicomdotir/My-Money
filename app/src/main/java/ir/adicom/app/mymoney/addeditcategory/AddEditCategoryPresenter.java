@@ -1,6 +1,7 @@
 package ir.adicom.app.mymoney.addeditcategory;
 
 import android.support.annotation.Nullable;
+
 import ir.adicom.app.mymoney.data.Category;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 
@@ -35,6 +36,14 @@ public class AddEditCategoryPresenter implements AddEditCategoryContract.Present
             createCategory(title);
         } else {
             updateCategory(title);
+        }
+    }
+
+    @Override
+    public void deleteCategory() {
+        if (!isNewCategory()) {
+            mCategoriesDataSource.deleteCategory(mCategoryId);
+            mView.showCategoriesList();
         }
     }
 

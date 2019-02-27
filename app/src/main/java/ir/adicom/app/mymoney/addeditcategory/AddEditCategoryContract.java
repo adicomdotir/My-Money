@@ -20,5 +20,6 @@ interface AddEditCategoryContract {
     interface Presenter extends BasePresenter {
         void saveCategory(String title);
 
+        void deleteCategory();
     }
 }

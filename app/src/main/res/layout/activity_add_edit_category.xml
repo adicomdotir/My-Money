@@ -47,6 +47,7 @@
                 app:fabSize="normal"
                 app:layout_anchor="@id/contentFrame"
                 app:layout_anchorGravity="bottom|right|end" />
+
         </android.support.design.widget.CoordinatorLayout>
 
     </LinearLayout>

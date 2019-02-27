@@ -10,19 +10,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import ir.adicom.app.mymoney.R;
-import ir.adicom.app.mymoney.categories.CategoriesContract;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AddEditCategoryFragment extends Fragment implements AddEditCategoryContract.View {
 
+    public static final String ARGUMENT_EDIT_CATEGORY_ID = "EDIT_CATEGORY_ID";
     private AddEditCategoryContract.Presenter mPresenter;
     private TextView mTitle;
-    public static final String ARGUMENT_EDIT_CATEGORY_ID = "EDIT_CATEGORY_ID";
+    private ImageButton mImageBtnDelete;
 
     public AddEditCategoryFragment() {
         // Required empty public constructor
@@ -52,6 +53,14 @@ public class AddEditCategoryFragment extends Fragment implements AddEditCategory
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add_edit_category, container, false);
         mTitle = (TextView) root.findViewById(R.id.add_category_title);
+        mImageBtnDelete = (ImageButton) root.findViewById(R.id.ib_delete);
+
+        mImageBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.deleteCategory();
+            }
+        });
 
         return root;
     }

@@ -112,11 +112,11 @@ public class CategoriesLocalDataSource implements CategoriesDataSource {
     }
 
     @Override
-    public void deleteCategory(@NonNull final int id) {
+    public void deleteCategory(@NonNull final Long id) {
         Runnable saveRunnable = new Runnable() {
             @Override
             public void run() {
-                mCategoryDao.deleteByKey((long) id);
+                mCategoryDao.deleteByKey(id);
             }
         };
         mAppExecutors.diskIO().execute(saveRunnable);
