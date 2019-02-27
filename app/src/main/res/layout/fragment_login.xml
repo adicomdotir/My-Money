@@ -57,10 +57,12 @@
                 android:drawablePadding="5dp"
                 android:drawableRight="@mipmap/account"
                 android:ems="10"
+                android:enabled="false"
                 android:gravity="right"
                 android:hint="@string/username_text"
                 android:inputType="text"
                 android:paddingRight="0dp"
+                android:text="admin"
                 android:textColor="@color/white"/>
 
             <EditText
@@ -71,10 +73,12 @@
                 android:drawablePadding="5dp"
                 android:drawableRight="@mipmap/lock"
                 android:ems="10"
+                android:enabled="false"
                 android:gravity="right"
                 android:hint="@string/password_text"
                 android:inputType="textPassword"
                 android:paddingRight="0dp"
+                android:text="password"
                 android:textColor="@color/white"/>
 
             <LinearLayout
@@ -120,6 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:enabled="false"
                 android:text="@string/register_text"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
