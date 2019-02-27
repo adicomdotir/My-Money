@@ -10,10 +10,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
+import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseFragment;
 import ir.adicom.app.mymoney.categories.CategoriesActivity;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
@@ -31,8 +33,18 @@ public class AddEditCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_category);
 
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
+        Long categoryId = getIntent().getLongExtra(AddEditCategoryFragment.ARGUMENT_EDIT_CATEGORY_ID, 0);
+        categoryId = categoryId == 0 ? null : categoryId;
+
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (categoryId == null) {
+            toolbar.setTitle("دسته جدید");
+        } else {
+            toolbar.setTitle("ویرایش دسته");
+        }
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         assert ab != null;
@@ -53,9 +65,6 @@ public class AddEditCategoryActivity extends AppCompatActivity {
             addEditCategoryFragment = new AddEditCategoryFragment();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), addEditCategoryFragment, R.id.contentFrame);
         }
-
-        Long categoryId = getIntent().getLongExtra(AddEditCategoryFragment.ARGUMENT_EDIT_CATEGORY_ID, 0);
-        categoryId = categoryId == 0 ? null : categoryId;
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());

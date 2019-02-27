@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.adicom.app.mymoney.App;
@@ -34,8 +35,18 @@ public class AddEditExpenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_expense);
 
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
+        Long expenseId = getIntent().getLongExtra(AddEditExpenseFragment.ARGUMENT_EDIT_EXPENSE_ID, 0);
+        expenseId = expenseId == 0 ? null : expenseId;
+
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (expenseId == null) {
+            toolbar.setTitle("هزینه جدید");
+        } else {
+            toolbar.setTitle("ویرایش هزینه");
+        }
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         assert ab != null;
@@ -56,9 +67,6 @@ public class AddEditExpenseActivity extends AppCompatActivity {
             addEditExpenseFragment = new AddEditExpenseFragment();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), addEditExpenseFragment, R.id.contentFrame);
         }
-
-        Long expenseId = getIntent().getLongExtra(AddEditExpenseFragment.ARGUMENT_EDIT_EXPENSE_ID, 0);
-        expenseId = expenseId == 0 ? null : expenseId;
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());

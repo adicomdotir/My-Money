@@ -23,7 +23,6 @@ import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseActivity;
 import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseFragment;
 import ir.adicom.app.mymoney.data.Expense;
 import ir.adicom.app.mymoney.util.CalendarTool;
-import ir.adicom.app.mymoney.util.CustomTextWatcher;
 
 /**
  * A simple {@link Fragment} subclass.
