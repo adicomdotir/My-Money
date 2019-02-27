@@ -7,4 +7,9 @@
     <color name="colorAccent">#83EC1E</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="white_pressed">#215487</color>
+    <color name="half_black">#653214</color>
+    <color name="menu_labels_style">#d58710</color>
+    <color name="red">#dc0e0e</color>
+    <color name="green">#0d710d</color>
 </resources>

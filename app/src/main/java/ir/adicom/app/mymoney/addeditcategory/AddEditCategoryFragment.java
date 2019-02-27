@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import ir.adicom.app.mymoney.R;
 
@@ -48,6 +49,23 @@ public class AddEditCategoryFragment extends Fragment implements AddEditCategory
                 mPresenter.saveCategory(mTitle.getText().toString());
             }
         });
+        FloatingActionButton fabDelete =
+                (FloatingActionButton) getActivity().findViewById(R.id.fab_delete_category);
+        fabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext())
+                    .setMessage("ایا شما میخواهید این دسته را حذف کنید؟")
+                    .setCancelable(false)
+                    .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            mPresenter.deleteCategory();
+                        }
+                    })
+                    .setNegativeButton("خیر", null)
+                    .show();
+            }
+        });
     }
 
     @Override
@@ -55,23 +73,6 @@ public class AddEditCategoryFragment extends Fragment implements AddEditCategory
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add_edit_category, container, false);
         mTitle = (TextView) root.findViewById(R.id.add_category_title);
-        mImageBtnDelete = (ImageButton) root.findViewById(R.id.ib_delete);
-
-        mImageBtnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(getContext())
-                        .setMessage("ایا شما میخواهید این دسته را حذف کنید؟")
-                        .setCancelable(false)
-                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                mPresenter.deleteCategory();
-                            }
-                        })
-                        .setNegativeButton("خیر", null)
-                        .show();
-            }
-        });
 
         return root;
     }

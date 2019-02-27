@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/list_navigation_menu_item_expenses"
-        android:icon="@drawable/ic_expense"
-        android:title="@string/expenses_text" />
+        android:title="@string/expenses_text"
+        android:icon="@drawable/ic_expense" />
     <item
         android:id="@+id/list_navigation_menu_item_categories"
         android:icon="@drawable/ic_categories"
