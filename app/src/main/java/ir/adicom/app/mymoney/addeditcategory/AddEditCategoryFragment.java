@@ -2,11 +2,13 @@ package ir.adicom.app.mymoney.addeditcategory;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +60,16 @@ public class AddEditCategoryFragment extends Fragment implements AddEditCategory
         mImageBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.deleteCategory();
+                new AlertDialog.Builder(getContext())
+                        .setMessage("ایا شما میخواهید این دسته را حذف کنید؟")
+                        .setCancelable(false)
+                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mPresenter.deleteCategory();
+                            }
+                        })
+                        .setNegativeButton("خیر", null)
+                        .show();
             }
         });
 
