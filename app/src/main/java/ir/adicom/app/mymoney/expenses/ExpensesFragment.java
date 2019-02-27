@@ -12,15 +12,18 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseActivity;
 import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseFragment;
 import ir.adicom.app.mymoney.data.Expense;
 import ir.adicom.app.mymoney.util.CalendarTool;
+import ir.adicom.app.mymoney.util.CustomTextWatcher;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -152,7 +155,8 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
             TextView tvDate = (TextView) rowView.findViewById(R.id.tv_date);
             TextView tvCategory = (TextView) rowView.findViewById(R.id.tv_category);
             tvTitle.setText("عنوان : " + expense.getTitle());
-            tvPrice.setText("هزینه :‌ " + expense.getPrice() + " تومان");
+            String priceWithFormat = NumberFormat.getNumberInstance(Locale.US).format(expense.getPrice());
+            tvPrice.setText("هزینه :‌ " + priceWithFormat + " تومان");
             tvCategory.setText("دسته بندی : " + expense.getCategory().getTitle());
 
             Calendar calendar = Calendar.getInstance();

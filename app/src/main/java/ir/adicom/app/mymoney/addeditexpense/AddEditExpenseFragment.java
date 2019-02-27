@@ -22,6 +22,7 @@ import java.util.List;
 
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.data.Category;
+import ir.adicom.app.mymoney.util.CustomTextWatcher;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +48,7 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
         catSpinner = (Spinner) root.findViewById(R.id.spinner_category);
         mTitle = (EditText) root.findViewById(R.id.add_expense_title);
         mPrice = (EditText) root.findViewById(R.id.et_expense_price);
+        mPrice.addTextChangedListener(new CustomTextWatcher(mPrice));
         mImageBtnDelete = (ImageButton) root.findViewById(R.id.ib_delete);
 
         mImageBtnDelete.setOnClickListener(new View.OnClickListener() {
