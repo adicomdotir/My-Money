@@ -1,7 +1,6 @@
 package ir.adicom.app.mymoney.login;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -69,7 +68,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         btnRegister = (Button) view.findViewById(R.id.btn_register);
         chkSaveLogin = (CheckBox) view.findViewById(R.id.chk_save_login);
         tvVersion = (TextView) view.findViewById(R.id.tv_version);
-        tvVersion.setText(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
+        tvVersion.setText(BuildConfig.VERSION_NAME);
     }
 
     @Override

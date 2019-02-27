@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import ir.adicom.app.mymoney.R;
-import ir.adicom.app.mymoney.addeditcategory.AddEditCategoryActivity;
-import ir.adicom.app.mymoney.addeditcategory.AddEditCategoryFragment;
 import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseActivity;
 import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseFragment;
-import ir.adicom.app.mymoney.categories.CategoriesFragment;
-import ir.adicom.app.mymoney.data.Category;
 import ir.adicom.app.mymoney.data.Expense;
 import ir.adicom.app.mymoney.util.CalendarTool;
 
@@ -35,15 +28,14 @@ import ir.adicom.app.mymoney.util.CalendarTool;
 public class ExpensesFragment extends Fragment implements ExpensesContract.View {
 
     private ExpensesContract.Presenter mExpensesPresenter;
-    private ListView lvExpenses;
-    private ExpensesAdapter mExpensesAdapter;
-
     ExpenseItemListener mItemListener = new ExpenseItemListener() {
         @Override
         public void onExpenseClick(Expense clickedExpense) {
             mExpensesPresenter.openExpenseDetail(clickedExpense);
         }
     };
+    private ListView lvExpenses;
+    private ExpensesAdapter mExpensesAdapter;
 
     public ExpensesFragment() {}
 
@@ -108,6 +100,10 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
         startActivity(intent);
     }
 
+    public interface ExpenseItemListener {
+        void onExpenseClick(Expense clickedExpense);
+    }
+
     private static class ExpensesAdapter extends BaseAdapter {
 
         private List<Expense> mExpenses;
@@ -157,6 +153,7 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
             TextView tvCategory = (TextView) rowView.findViewById(R.id.tv_category);
             tvTitle.setText("عنوان : " + expense.getTitle());
             tvPrice.setText("هزینه :‌ " + expense.getPrice() + " تومان");
+            tvCategory.setText("دسته بندی : " + expense.getCategory().getTitle() + " + " + expense.getCategoryId());
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(expense.getDate());
@@ -166,7 +163,6 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
             CalendarTool calendarTool = new CalendarTool(mYear, mMonth + 1, mDay);
             tvDate.setText("تاریخ :‌ " + calendarTool.getIranianDate() + "");
 
-            tvCategory.setText("دسته بندی : " + expense.getCategoryId() + "");
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -177,9 +173,5 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
 
             return rowView;
         }
-    }
-
-    public interface ExpenseItemListener {
-        void onExpenseClick(Expense clickedExpense);
     }
 }

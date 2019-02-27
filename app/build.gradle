@@ -3,8 +3,8 @@ apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 def versionMajor = 0
 def versionMinor = 1
-def versionPatch = 0
-def versionBuild = 1
+def versionPatch = 1
+def versionBuild = 2
 
 greendao {
     schemaVersion 2
