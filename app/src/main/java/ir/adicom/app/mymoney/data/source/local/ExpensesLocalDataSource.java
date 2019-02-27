@@ -112,7 +112,7 @@ public class ExpensesLocalDataSource implements ExpensesDataSource {
     }
 
     @Override
-    public void deleteExpense(@NonNull final int id) {
+    public void deleteExpense(@NonNull final Long id) {
         Runnable saveRunnable = new Runnable() {
             @Override
             public void run() {

@@ -30,5 +30,7 @@ interface AddEditExpenseContract {
         void saveExpense(String title, Long categoryId, Long price);
 
         void loadCategories();
+    
+        void deleteExpense();
     }
 }

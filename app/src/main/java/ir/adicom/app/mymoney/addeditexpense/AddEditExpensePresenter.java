@@ -4,13 +4,10 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
-import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.data.Category;
 import ir.adicom.app.mymoney.data.Expense;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
-import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
-import ir.adicom.app.mymoney.util.AppExecutors;
 
 /**
  * AddEditExpensePresenter
@@ -64,6 +61,14 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
 
             }
         });
+    }
+
+    @Override
+    public void deleteExpense() {
+        if (!isExpenseNew()) {
+            mExpensesDataSource.deleteExpense(mExpenseId);
+            mView.showExpensesList();
+        }
     }
 
     private void createExpense(String title, Long categoryId, Long price) {

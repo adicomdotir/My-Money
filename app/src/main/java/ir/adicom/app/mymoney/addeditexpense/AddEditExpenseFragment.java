@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -24,12 +25,13 @@ import ir.adicom.app.mymoney.data.Category;
  * A simple {@link Fragment} subclass.
  */
 public class AddEditExpenseFragment extends Fragment implements AddEditExpenseContract.View {
+    public static final String ARGUMENT_EDIT_EXPENSE_ID = "EDIT_EXPENSE_ID";
     private AddEditExpenseContract.Presenter mPresenter;
     private Spinner catSpinner;
     private EditText mTitle;
     private EditText mPrice;
+    private ImageButton mImageBtnDelete;
     private List<Category> mCategories;
-    public static final String ARGUMENT_EDIT_EXPENSE_ID = "EDIT_EXPENSE_ID";
 
     public AddEditExpenseFragment() {
         // Required empty public constructor
@@ -43,6 +45,14 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
         catSpinner = (Spinner) root.findViewById(R.id.spinner_category);
         mTitle = (EditText) root.findViewById(R.id.add_expense_title);
         mPrice = (EditText) root.findViewById(R.id.et_expense_price);
+        mImageBtnDelete = (ImageButton) root.findViewById(R.id.ib_delete);
+
+        mImageBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.deleteExpense();
+            }
+        });
 
         return root;
     }

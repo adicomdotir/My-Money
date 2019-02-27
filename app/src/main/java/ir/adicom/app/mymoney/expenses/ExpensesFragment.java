@@ -153,7 +153,7 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
             TextView tvCategory = (TextView) rowView.findViewById(R.id.tv_category);
             tvTitle.setText("عنوان : " + expense.getTitle());
             tvPrice.setText("هزینه :‌ " + expense.getPrice() + " تومان");
-            tvCategory.setText("دسته بندی : " + expense.getCategory().getTitle() + " + " + expense.getCategoryId());
+            tvCategory.setText("دسته بندی : " + expense.getCategory().getTitle());
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(expense.getDate());
