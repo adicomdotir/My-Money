@@ -17,8 +17,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.data.Category;
@@ -79,7 +82,14 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
             @Override
             public void onClick(View v) {
                 String title = mTitle.getText().toString();
-                Long price = Long.parseLong(mPrice.getText().toString());
+                NumberFormat nf = NumberFormat.getInstance(Locale.US);
+                Long price = null;
+                try {
+                    price = nf.parse(mPrice.getText().toString()).longValue();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+//                Long price = Long.parseLong(mPrice.getText().toString());
 
                 // TODO: 1/22/19 Get categoryId from spinner => BAD SMELLS
                 Category category = mCategories.get((int) catSpinner.getSelectedItemId());
