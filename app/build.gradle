@@ -56,5 +56,6 @@ dependencies {
     compile 'io.github.inflationx:viewpump:1.0.0'
     compile 'org.greenrobot:greendao:3.2.2' // add library
     compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     testCompile 'junit:junit:4.12'
 }
