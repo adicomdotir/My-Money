@@ -42,6 +42,7 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
     private EditText mPrice;
     private Button mDateBtn;
     private List<Category> mCategories;
+    private CalendarTool calendarTool;
 
     public AddEditExpenseFragment() {
         // Required empty public constructor
@@ -60,13 +61,13 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
         mDateBtn = (Button) root.findViewById(R.id.btn_date);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        final CalendarTool ct = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
-        mDateBtn.setText(ct.getIranianDate());
+        calendarTool = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+        mDateBtn.setText(calendarTool.getIranianDate());
 
         mDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog customDatePickerDialog = new DatePickerDialog(getContext(), ct);
+                DatePickerDialog customDatePickerDialog = new DatePickerDialog(getContext(), calendarTool);
                 customDatePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
@@ -173,8 +174,8 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
     public void setDate(Long date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date);
-        final CalendarTool ct = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
-        mDateBtn.setText(ct.getIranianDate());
+        calendarTool = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+        mDateBtn.setText(calendarTool.getIranianDate());
     }
 
 

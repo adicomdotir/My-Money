@@ -22,21 +22,6 @@ public class NumberSlider extends LinearLayout {
     private int max = 0, min = 0;
     private int len = 4;
 
-    public void setLen(int len) {
-        this.len = len;
-        invalidate();
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public void setMinMax(int min, int max) {
-        this.min = min;
-        this.max = max;
-    }
-
-
     public NumberSlider(Context context) {
         super(context);
         init(context);
@@ -50,6 +35,20 @@ public class NumberSlider extends LinearLayout {
     public NumberSlider(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
+    }
+
+    public void setLen(int len) {
+        this.len = len;
+        invalidate();
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setMinMax(int min, int max) {
+        this.min = min;
+        this.max = max;
     }
 
     public void init(Context context) {
@@ -95,16 +94,17 @@ public class NumberSlider extends LinearLayout {
     private String getFormat() {
         String format = "%0" + len + "d";
         String str = String.format(format, number);
-        char[] arabicChars = {'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'};
-        StringBuilder builder = new StringBuilder();
-        for(int i =0;i<str.length();i++) {
-            if(Character.isDigit(str.charAt(i))) {
-                builder.append(arabicChars[(int)(str.charAt(i))-48]);
-            } else {
-                builder.append(str.charAt(i));
-            }
-        }
-        return builder.toString();
+//        char[] arabicChars = {'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'};
+//        StringBuilder builder = new StringBuilder();
+//        for(int i =0;i<str.length();i++) {
+//            if(Character.isDigit(str.charAt(i))) {
+//                builder.append(arabicChars[(int)(str.charAt(i))-48]);
+//            } else {
+//                builder.append(str.charAt(i));
+//            }
+//        }
+//        return builder.toString();
+        return str;
     }
 
     public String getText() {
