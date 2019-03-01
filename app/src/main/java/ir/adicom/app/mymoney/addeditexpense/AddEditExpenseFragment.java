@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -13,19 +12,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.data.Category;
+import ir.adicom.app.mymoney.util.CalendarTool;
 import ir.adicom.app.mymoney.util.CustomTextWatcher;
+import ir.adicom.app.mymoney.util.datepicker.DatePickerDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +40,7 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
     private Spinner catSpinner;
     private EditText mTitle;
     private EditText mPrice;
-    private ImageButton mImageBtnDelete;
+    private Button mDateBtn;
     private List<Category> mCategories;
 
     public AddEditExpenseFragment() {
@@ -52,21 +56,25 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
         mTitle = (EditText) root.findViewById(R.id.add_expense_title);
         mPrice = (EditText) root.findViewById(R.id.et_expense_price);
         mPrice.addTextChangedListener(new CustomTextWatcher(mPrice));
-        mImageBtnDelete = (ImageButton) root.findViewById(R.id.ib_delete);
 
-        mImageBtnDelete.setOnClickListener(new View.OnClickListener() {
+        mDateBtn = (Button) root.findViewById(R.id.btn_date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        final CalendarTool ct = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        mDateBtn.setText(ct.getIranianDate());
+
+        mDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(getContext())
-                        .setMessage("ایا شما میخواهید این دسته را حذف کنید؟")
-                        .setCancelable(false)
-                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                mPresenter.deleteExpense();
-                            }
-                        })
-                        .setNegativeButton("خیر", null)
-                        .show();
+                DatePickerDialog customDatePickerDialog = new DatePickerDialog(getContext(), ct);
+                customDatePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        DatePickerDialog dialog = (DatePickerDialog) dialogInterface;
+                        mDateBtn.setText(dialog.date);
+                    }
+                });
+                customDatePickerDialog.show();
             }
         });
 
@@ -77,7 +85,8 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_add_expense);
+        FloatingActionButton fab =
+                (FloatingActionButton) getActivity().findViewById(R.id.fab_add_category);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,11 +98,27 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-//                Long price = Long.parseLong(mPrice.getText().toString());
 
                 // TODO: 1/22/19 Get categoryId from spinner => BAD SMELLS
                 Category category = mCategories.get((int) catSpinner.getSelectedItemId());
                 mPresenter.saveExpense(title, category.getId(), price);
+            }
+        });
+        FloatingActionButton fabDelete =
+                (FloatingActionButton) getActivity().findViewById(R.id.fab_delete_category);
+        fabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext())
+                        .setMessage("ایا شما میخواهید این دسته را حذف کنید؟")
+                        .setCancelable(false)
+                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mPresenter.deleteExpense();
+                            }
+                        })
+                        .setNegativeButton("خیر", null)
+                        .show();
             }
         });
     }
@@ -143,4 +168,14 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
     public void setSelectionCategory(int id) {
         catSpinner.setSelection(id);
     }
+
+    @Override
+    public void setDate(Long date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+        final CalendarTool ct = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        mDateBtn.setText(ct.getIranianDate());
+    }
+
+
 }

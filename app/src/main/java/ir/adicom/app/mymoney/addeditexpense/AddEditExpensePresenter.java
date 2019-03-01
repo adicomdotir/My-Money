@@ -113,6 +113,7 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
     public void onExpenseLoaded(Expense expense) {
         mView.setTitle(expense.getTitle());
         mView.setPrice(expense.getPrice());
+        mView.setDate(expense.getDate());
         mView.setSelectionCategory(getSelectionCategoryId(expense.getCategoryId()));
     }
 

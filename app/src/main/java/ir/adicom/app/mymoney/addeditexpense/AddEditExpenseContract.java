@@ -24,6 +24,8 @@ interface AddEditExpenseContract {
         void setPrice(Long price);
 
         void setSelectionCategory(int id);
+
+        void setDate(Long date);
     }
 
     interface Presenter extends BasePresenter {
