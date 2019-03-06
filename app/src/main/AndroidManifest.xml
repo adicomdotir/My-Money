@@ -6,8 +6,8 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:supportsRtl="true"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".login.LoginActivity">
             <intent-filter>
@@ -21,6 +21,7 @@
         <activity android:name=".categories.CategoriesActivity" />
         <activity android:name=".addeditexpense.AddEditExpenseActivity" />
         <activity android:name=".addeditcategory.AddEditCategoryActivity"></activity>
+        <activity android:name=".report.ReportActivity"></activity>
     </application>
 
 </manifest>

@@ -15,10 +15,10 @@ import android.view.View;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
-import ir.adicom.app.mymoney.addeditexpense.AddEditExpenseFragment;
 import ir.adicom.app.mymoney.categories.CategoriesActivity;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
+import ir.adicom.app.mymoney.report.ReportActivity;
 import ir.adicom.app.mymoney.util.ActivityUtils;
 import ir.adicom.app.mymoney.util.AppExecutors;
 
@@ -94,6 +94,10 @@ public class AddEditCategoryActivity extends AppCompatActivity {
                         switch (menuItem.getItemId()) {
                             case R.id.list_navigation_menu_item_categories:
                                 startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
+                                break;
+                            case R.id.list_navigation_menu_item_report:
+                                startActivity(new Intent(getApplicationContext(), ReportActivity.class));
+                                finish();
                                 break;
                             default:
                                 break;

@@ -17,13 +17,4 @@ public class ReportPresenter implements ReportContract.Presenter {
     public void start() {
 
     }
-
-    @Override
-    public void submitRegister(String email, String username, String password) {
-        if (email.length() == 0 || username.length() == 0 || password.length() == 0) {
-            mRegisterView.failedRegister("ایمیل یا نام کاربری یا رمز عبور وارد نشده است!");
-        } else {
-            mRegisterView.successRegister();
-        }
-    }
 }

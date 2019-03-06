@@ -1,15 +1,22 @@
 package ir.adicom.app.mymoney.report;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ir.adicom.app.mymoney.R;
 
@@ -19,8 +26,6 @@ import ir.adicom.app.mymoney.R;
 public class ReportFragment extends Fragment implements ReportContract.View {
 
     private ReportContract.Presenter mPresenter;
-    private EditText etEmail, etUsername, etPassword;
-    private Button btnRegister;
 
     public ReportFragment() {
     }
@@ -28,46 +33,48 @@ public class ReportFragment extends Fragment implements ReportContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        return inflater.inflate(R.layout.fragment_report, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initView(view);
+        PieChart chart = (PieChart) view.findViewById(R.id.chart1);
+        chart.getDescription().setEnabled(false);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.submitRegister(
-                        etEmail.getText().toString(),
-                        etUsername.getText().toString(),
-                        etPassword.getText().toString()
-                );
-            }
-        });
+        List<PieEntry> entries = new ArrayList<>();
+        entries.add(new PieEntry(5, "غذا"));
+        entries.add(new PieEntry(10, "قلیان"));
+        entries.add(new PieEntry(15, "سوخت"));
+
+        PieDataSet dataSet = new PieDataSet(entries, "دسته ها");
+        dataSet.setValueFormatter(new PercentFormatter());
+
+        int[] colors = new int[]{
+                Color.parseColor("#488f31"),
+                Color.parseColor("#3d9c73"),
+                Color.parseColor("#63b179"),
+                Color.parseColor("#88c580"),
+                Color.parseColor("#aed987"),
+                Color.parseColor("#d6ec91"),
+                Color.parseColor("#ffff9d"),
+                Color.parseColor("#fee17e"),
+                Color.parseColor("#fcc267"),
+                Color.parseColor("#f7a258"),
+                Color.parseColor("#ef8250"),
+                Color.parseColor("#e4604e"),
+                Color.parseColor("#de425b")
+        };
+        dataSet.setColors(colors);
+        dataSet.setValueTextColor(Color.WHITE);
+
+        PieData barData = new PieData(dataSet);
+        chart.setData(barData);
+        chart.invalidate();
     }
-
-    private void initView(View view) {
-        etEmail = (EditText) view.findViewById(R.id.et_email);
-        etUsername = (EditText) view.findViewById(R.id.et_username);
-        etPassword = (EditText) view.findViewById(R.id.et_password);
-        btnRegister = (Button) view.findViewById(R.id.btn_register);
-    }
-
     @Override
     public void setPresenter(ReportContract.Presenter presenter) {
         this.mPresenter = presenter;
-    }
-
-    @Override
-    public void successRegister() {
-        getActivity().finish();
-    }
-
-    @Override
-    public void failedRegister(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
