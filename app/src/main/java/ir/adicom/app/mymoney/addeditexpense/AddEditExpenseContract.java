@@ -29,7 +29,7 @@ interface AddEditExpenseContract {
     }
 
     interface Presenter extends BasePresenter {
-        void saveExpense(String title, Long categoryId, Long price);
+        void saveExpense(String title, Long categoryId, Long price, Long date);
 
         void loadCategories();
     

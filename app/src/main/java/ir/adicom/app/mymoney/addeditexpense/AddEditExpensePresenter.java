@@ -36,11 +36,11 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
     }
 
     @Override
-    public void saveExpense(String title, Long categoryId, Long price) {
+    public void saveExpense(String title, Long categoryId, Long price, Long date) {
         if (isExpenseNew()) {
-            createExpense(title, categoryId, price);
+            createExpense(title, categoryId, price, date);
         } else {
-            updateExpense(title, categoryId, price);
+            updateExpense(title, categoryId, price, date);
         }
     }
 
@@ -71,12 +71,12 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
         }
     }
 
-    private void createExpense(String title, Long categoryId, Long price) {
+    private void createExpense(String title, Long categoryId, Long price, Long date) {
         Expense newExpense = new Expense();
         newExpense.setTitle(title);
         newExpense.setCategoryId(categoryId);
         newExpense.setPrice(price);
-        newExpense.setDate(System.currentTimeMillis());
+        newExpense.setDate(date);
 
         if (newExpense.isEmpty()) {
             mView.showEmptyExpenseError();
@@ -86,12 +86,12 @@ public class AddEditExpensePresenter implements AddEditExpenseContract.Presenter
         }
     }
 
-    private void updateExpense(String title, Long categoryId, Long price) {
+    private void updateExpense(String title, Long categoryId, Long price, Long date) {
         if (isExpenseNew()) {
             throw new RuntimeException("updateExpense() was called but expense is new.");
         }
 
-        mExpensesDataSource.updateExpense(new Expense(mExpenseId,  title, price, categoryId, System.currentTimeMillis()));
+        mExpensesDataSource.updateExpense(new Expense(mExpenseId, title, price, categoryId, date));
         mView.showExpensesList(); // After an edit, go back to the list.
     }
 

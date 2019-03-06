@@ -20,6 +20,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -100,9 +101,12 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
                     e.printStackTrace();
                 }
 
+                String date = mDateBtn.getText().toString();
+                Long millis = dateToLong(date);
+
                 // TODO: 1/22/19 Get categoryId from spinner => BAD SMELLS
                 Category category = mCategories.get((int) catSpinner.getSelectedItemId());
-                mPresenter.saveExpense(title, category.getId(), price);
+                mPresenter.saveExpense(title, category.getId(), price, millis);
             }
         });
         FloatingActionButton fabDelete =
@@ -122,6 +126,24 @@ public class AddEditExpenseFragment extends Fragment implements AddEditExpenseCo
                         .show();
             }
         });
+    }
+
+    private Long dateToLong(String date) {
+        CalendarTool ct = new CalendarTool();
+        String[] temp = date.split("/");
+        int year = Integer.parseInt(temp[0]);
+        int month = Integer.parseInt(temp[1]);
+        int day = Integer.parseInt(temp[2]);
+        ct.setIranianDate(year, month, day);
+        String myDate = ct.getGregorianDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Long millis = null;
+        try {
+            millis = sdf.parse(myDate).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return millis;
     }
 
     @Override
