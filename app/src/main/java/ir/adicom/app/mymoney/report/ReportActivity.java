@@ -13,10 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.categories.CategoriesActivity;
+import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
+import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
+import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
+import ir.adicom.app.mymoney.data.source.local.ExpensesLocalDataSource;
 import ir.adicom.app.mymoney.expenses.ExpensesActivity;
 import ir.adicom.app.mymoney.util.ActivityUtils;
+import ir.adicom.app.mymoney.util.AppExecutors;
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -52,7 +58,10 @@ public class ReportActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), registerFragment, R.id.contentFrame);
         }
 
-        mPresenter = new ReportPresenter(registerFragment);
+        AppExecutors appExecutors = new AppExecutors();
+        CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
+        ExpensesDataSource eds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
+        mPresenter = new ReportPresenter(registerFragment, cds, eds);
     }
 
     @Override

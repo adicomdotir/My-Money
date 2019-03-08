@@ -78,6 +78,32 @@ public class ExpensesLocalDataSource implements ExpensesDataSource {
     }
 
     @Override
+    public void getExpenseByCategory(final Long categoryId, final LoadExpensesCallback callback) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                final List<Expense> expenses = mExpenseDao.queryBuilder()
+                        .where(ExpenseDao.Properties.CategoryId.eq(categoryId))
+                        .list();
+
+                mAppExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (expenses.isEmpty()) {
+                            // This will be called if the table is new or just empty.
+                            callback.onDataNotAvailable();
+                        } else {
+                            callback.onExpensesLoaded(expenses);
+                        }
+                    }
+                });
+            }
+        };
+
+        mAppExecutors.diskIO().execute(runnable);
+    }
+
+    @Override
     public void saveExpense(@NonNull final Expense expense) {
         Runnable saveRunnable = new Runnable() {
             @Override

@@ -1,5 +1,7 @@
 package ir.adicom.app.mymoney.report;
 
+import java.util.Map;
+
 import ir.adicom.app.mymoney.BasePresenter;
 import ir.adicom.app.mymoney.BaseView;
 
@@ -9,9 +11,12 @@ import ir.adicom.app.mymoney.BaseView;
 
 public interface ReportContract {
     interface View extends BaseView<Presenter> {
-
+        void initializeChart(Map<Long, Long> result);
     }
 
     interface Presenter extends BasePresenter {
+        void loadCategories();
+
+        String getCategory(Long key);
     }
 }

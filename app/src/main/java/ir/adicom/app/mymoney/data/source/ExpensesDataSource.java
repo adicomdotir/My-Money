@@ -11,6 +11,8 @@ public interface ExpensesDataSource {
 
     void getExpense(@NonNull Long id, @NonNull GetExpenseCallback callback);
 
+    void getExpenseByCategory(Long categoryId, LoadExpensesCallback callback);
+
     void saveExpense(@NonNull Expense expense);
 
     void updateExpense(Expense expense);

@@ -17,6 +17,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import ir.adicom.app.mymoney.R;
 
@@ -26,6 +27,7 @@ import ir.adicom.app.mymoney.R;
 public class ReportFragment extends Fragment implements ReportContract.View {
 
     private ReportContract.Presenter mPresenter;
+    private PieChart chart;
 
     public ReportFragment() {
     }
@@ -40,13 +42,31 @@ public class ReportFragment extends Fragment implements ReportContract.View {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        PieChart chart = (PieChart) view.findViewById(R.id.chart1);
+        chart = (PieChart) view.findViewById(R.id.chart1);
         chart.getDescription().setEnabled(false);
+    }
 
+    @Override
+    public void setPresenter(ReportContract.Presenter presenter) {
+        this.mPresenter = presenter;
+        mPresenter.start();
+    }
+
+    @Override
+    public void initializeChart(Map<Long, Long> result) {
         List<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(5, "غذا"));
-        entries.add(new PieEntry(10, "قلیان"));
-        entries.add(new PieEntry(15, "سوخت"));
+        Long sumPrice = 0L;
+        for (Map.Entry<Long, Long> entry : result.entrySet()) {
+            sumPrice += entry.getValue();
+            //entries.add(new PieEntry(entry.getValue(), entry.getKey()));
+        }
+        for (Map.Entry<Long, Long> entry : result.entrySet()) {
+            Long percent = entry.getValue() * 100 / sumPrice;
+            entries.add(new PieEntry(percent, mPresenter.getCategory(entry.getKey())));
+        }
+//        entries.add(new PieEntry(5, "غذا"));
+//        entries.add(new PieEntry(10, "قلیان"));
+//        entries.add(new PieEntry(15, "سوخت"));
 
         PieDataSet dataSet = new PieDataSet(entries, "دسته ها");
         dataSet.setValueFormatter(new PercentFormatter());
@@ -72,9 +92,5 @@ public class ReportFragment extends Fragment implements ReportContract.View {
         PieData barData = new PieData(dataSet);
         chart.setData(barData);
         chart.invalidate();
-    }
-    @Override
-    public void setPresenter(ReportContract.Presenter presenter) {
-        this.mPresenter = presenter;
     }
 }
