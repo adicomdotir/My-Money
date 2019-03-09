@@ -13,7 +13,7 @@ import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
  * Created by Y.P on 28/08/2018.
  */
 
-public class ReportPresenter implements ChartContract.Presenter, ExpensesDataSource.LoadExpensesCallback {
+public class ChartPresenter implements ChartContract.Presenter, ExpensesDataSource.LoadExpensesCallback {
 
     private ChartContract.View mRegisterView;
     private CategoriesDataSource mCategoriesDataSource;

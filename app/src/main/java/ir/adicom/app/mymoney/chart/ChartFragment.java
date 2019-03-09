@@ -24,7 +24,7 @@ import ir.adicom.app.mymoney.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReportFragment extends Fragment implements ChartContract.View {
+public class ChartFragment extends Fragment implements ChartContract.View {
 
     private ChartContract.Presenter mPresenter;
     private PieChart chart;

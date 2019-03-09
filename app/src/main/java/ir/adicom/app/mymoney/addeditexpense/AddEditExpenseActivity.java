@@ -20,7 +20,7 @@ import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
 import ir.adicom.app.mymoney.data.source.local.ExpensesLocalDataSource;
-import ir.adicom.app.mymoney.report.ReportActivity;
+import ir.adicom.app.mymoney.chart.ChartActivity;
 import ir.adicom.app.mymoney.util.ActivityUtils;
 import ir.adicom.app.mymoney.util.AppExecutors;
 
@@ -98,8 +98,8 @@ public class AddEditExpenseActivity extends AppCompatActivity {
                             case R.id.list_navigation_menu_item_categories:
                                 startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
                                 break;
-                            case R.id.list_navigation_menu_item_report:
-                                startActivity(new Intent(getApplicationContext(), ReportActivity.class));
+                            case R.id.list_navigation_menu_item_chart:
+                                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
                                 finish();
                                 break;
                             default:

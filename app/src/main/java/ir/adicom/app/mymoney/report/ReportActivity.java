@@ -1,4 +1,4 @@
-package ir.adicom.app.mymoney.report;
+package ir.adicom.app.mymoney.chart;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,13 +26,13 @@ import ir.adicom.app.mymoney.util.AppExecutors;
 
 public class ReportActivity extends AppCompatActivity {
 
-    private ReportContract.Presenter mPresenter;
+    private ChartContract.Presenter mPresenter;
     private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report);
+        setContentView(R.layout.activity_chart);
 
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
@@ -52,16 +52,16 @@ public class ReportActivity extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
-        ReportFragment registerFragment = (ReportFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        ChartFragment registerFragment = (ChartFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (registerFragment == null) {
-            registerFragment = new ReportFragment();
+            registerFragment = new ChartFragment();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), registerFragment, R.id.contentFrame);
         }
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
         ExpensesDataSource eds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
-        mPresenter = new ReportPresenter(registerFragment, cds, eds);
+        mPresenter = new ChartPresenter(registerFragment, cds, eds);
     }
 
     @Override

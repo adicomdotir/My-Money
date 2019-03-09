@@ -1,4 +1,4 @@
-package ir.adicom.app.mymoney.categories;
+package ir.adicom.app.mymoney.chart;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,22 +15,24 @@ import android.view.View;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
+import ir.adicom.app.mymoney.categories.CategoriesActivity;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
+import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
+import ir.adicom.app.mymoney.data.source.local.ExpensesLocalDataSource;
 import ir.adicom.app.mymoney.expenses.ExpensesActivity;
-import ir.adicom.app.mymoney.chart.ChartActivity;
 import ir.adicom.app.mymoney.util.ActivityUtils;
 import ir.adicom.app.mymoney.util.AppExecutors;
 
-public class CategoriesActivity extends AppCompatActivity {
+public class ChartActivity extends AppCompatActivity {
 
-    private CategoriesPresenter categoriesPresenter;
+    private ChartContract.Presenter mPresenter;
     private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_categories);
+        setContentView(R.layout.activity_chart);
 
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
@@ -50,21 +52,23 @@ public class CategoriesActivity extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
-        CategoriesFragment categoriesFragment = (CategoriesFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (categoriesFragment == null) {
-            categoriesFragment = new CategoriesFragment();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), categoriesFragment, R.id.contentFrame);
+        ChartFragment registerFragment = (ChartFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (registerFragment == null) {
+            registerFragment = new ChartFragment();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), registerFragment, R.id.contentFrame);
         }
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
-        categoriesPresenter = new CategoriesPresenter(categoriesFragment, cds);
+        ExpensesDataSource eds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
+        mPresenter = new ChartPresenter(registerFragment, cds, eds);
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -86,8 +90,8 @@ public class CategoriesActivity extends AppCompatActivity {
                                 startActivity(new Intent(getApplicationContext(), ExpensesActivity.class));
                                 finish();
                                 break;
-                            case R.id.list_navigation_menu_item_chart:
-                                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+                            case R.id.list_navigation_menu_item_categories:
+                                startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
                                 finish();
                                 break;
                             default:

@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_categories"
         android:title="@string/categories_text" />
     <item
-        android:id="@+id/list_navigation_menu_item_report"
+        android:id="@+id/list_navigation_menu_item_chart"
         android:icon="@drawable/ic_categories"
-        android:title="@string/report_text" />
+        android:title="@string/chart_text" />
 </menu>

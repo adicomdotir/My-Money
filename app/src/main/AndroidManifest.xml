@@ -21,6 +21,7 @@
         <activity android:name=".categories.CategoriesActivity" />
         <activity android:name=".addeditexpense.AddEditExpenseActivity" />
         <activity android:name=".addeditcategory.AddEditCategoryActivity"></activity>
+        <activity android:name=".chart.ChartActivity"></activity>
         <activity android:name=".report.ReportActivity"></activity>
     </application>
 

@@ -18,7 +18,7 @@ import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.categories.CategoriesActivity;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.data.source.local.ExpensesLocalDataSource;
-import ir.adicom.app.mymoney.report.ReportActivity;
+import ir.adicom.app.mymoney.chart.ChartActivity;
 import ir.adicom.app.mymoney.util.ActivityUtils;
 import ir.adicom.app.mymoney.util.AppExecutors;
 
@@ -86,8 +86,8 @@ public class ExpensesActivity extends AppCompatActivity {
                                 startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
                                 finish();
                                 break;
-                            case R.id.list_navigation_menu_item_report:
-                                startActivity(new Intent(getApplicationContext(), ReportActivity.class));
+                            case R.id.list_navigation_menu_item_chart:
+                                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
                                 finish();
                                 break;
                             default:
