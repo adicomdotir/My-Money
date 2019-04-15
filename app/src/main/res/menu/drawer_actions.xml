@@ -11,6 +11,10 @@
         android:title="@string/categories_text" />
     <item
         android:id="@+id/list_navigation_menu_item_chart"
-        android:icon="@drawable/ic_categories"
+        android:icon="@drawable/ic_chart"
         android:title="@string/chart_text" />
+    <item
+        android:id="@+id/list_navigation_menu_item_report"
+        android:icon="@drawable/ic_report"
+        android:title="@string/report_text"/>
 </menu>
