@@ -65,7 +65,7 @@ public class ChartFragment extends Fragment implements ChartContract.View {
         DecimalFormat df = new DecimalFormat("#.#");
         List<Integer> colors = new ArrayList<>();
         for (Map.Entry<Long, Long> entry : result.entrySet()) {
-            float percent = entry.getValue() * 100 / sumPrice;
+            float percent = (float) entry.getValue() * 100 / sumPrice;
             percent = Float.parseFloat(df.format(percent));
             entries.add(new PieEntry(percent, mPresenter.getCategory(entry.getKey())));
             colors.add(generateDarkColor());

@@ -23,7 +23,7 @@ public class ReportPresenter implements ChartContract.Presenter, ExpensesDataSou
     private Map<Long, Long> exensesByCat = new HashMap<>();
     private int categoriesCount = 0;
 
-    public ChartPresenter(ChartContract.View registerView, CategoriesDataSource cds, ExpensesDataSource eds) {
+    public ReportPresenter(ChartContract.View registerView, CategoriesDataSource cds, ExpensesDataSource eds) {
         this.mRegisterView = registerView;
         mCategoriesDataSource = cds;
         mExpensesDataSource = eds;

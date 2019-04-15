@@ -29,7 +29,7 @@ public class ReportFragment extends Fragment implements ChartContract.View {
     private ChartContract.Presenter mPresenter;
     private PieChart chart;
 
-    public ChartFragment() {
+    public ReportFragment() {
     }
 
     @Override

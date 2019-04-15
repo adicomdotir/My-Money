@@ -36,7 +36,9 @@ public class ExpensesLocalDataSource implements ExpensesDataSource {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                final List<Expense> expenses = mExpenseDao.queryBuilder().orderDesc(ExpenseDao.Properties.Date).list();
+                final List<Expense> expenses = mExpenseDao.queryBuilder()
+                        .orderDesc(ExpenseDao.Properties.Date, ExpenseDao.Properties.Id)
+                        .list();
                 mAppExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
