@@ -67,6 +67,7 @@
                     android:layout_height="wrap_content"
                     fab:fab_colorNormal="@color/red"
                     fab:fab_colorPressed="@color/white"
+                    fab:fab_icon="@drawable/ic_delete"
                     fab:fab_size="mini"
                     fab:fab_title="حذف"/>
 

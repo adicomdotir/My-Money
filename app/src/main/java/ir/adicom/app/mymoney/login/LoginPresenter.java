@@ -33,7 +33,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (username.length() == 0 || password.length() == 0) {
             mLoginView.showError("نام کاربری یا رمز عبور وارد نشده است!");
         } else {
-            mLoginView.loginSucces();
+            mLoginView.loginSuccess();
         }
     }
 

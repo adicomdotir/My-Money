@@ -16,7 +16,7 @@ public interface LoginContract {
 
         void showError(String message);
 
-        void loginSucces();
+        void loginSuccess();
 
         void initLoginInfo(String username, String password);
     }
