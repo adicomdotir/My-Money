@@ -1,12 +1,14 @@
 package ir.adicom.app.mymoney.chart;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -69,6 +71,24 @@ public class ChartActivity extends AppCompatActivity {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("ایا می خواهید از برنامه خارج شوید؟")
+                .setCancelable(false)
+                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        ChartActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -1,12 +1,14 @@
-package ir.adicom.app.mymoney.chart;
+package ir.adicom.app.mymoney.report;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -16,6 +18,8 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.categories.CategoriesActivity;
+import ir.adicom.app.mymoney.chart.ReportContract;
+import ir.adicom.app.mymoney.chart.ReportFragment;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
@@ -26,7 +30,7 @@ import ir.adicom.app.mymoney.util.AppExecutors;
 
 public class ReportActivity extends AppCompatActivity {
 
-    private ChartContract.Presenter mPresenter;
+    private ReportContract.Presenter mPresenter;
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -52,16 +56,16 @@ public class ReportActivity extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
-        ChartFragment registerFragment = (ChartFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        ReportFragment registerFragment = (ReportFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (registerFragment == null) {
-            registerFragment = new ChartFragment();
+            registerFragment = new ReportFragment();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), registerFragment, R.id.contentFrame);
         }
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
         ExpensesDataSource eds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
-        mPresenter = new ChartPresenter(registerFragment, cds, eds);
+//        mPresenter = new ReportFragment(registerFragment, cds, eds);
     }
 
     @Override
@@ -69,6 +73,24 @@ public class ReportActivity extends AppCompatActivity {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("ایا می خواهید از برنامه خارج شوید؟")
+                .setCancelable(false)
+                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        ReportActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
