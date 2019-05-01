@@ -17,10 +17,11 @@ import android.view.View;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
+import ir.adicom.app.mymoney.chart.ChartActivity;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
 import ir.adicom.app.mymoney.expenses.ExpensesActivity;
-import ir.adicom.app.mymoney.chart.ChartActivity;
+import ir.adicom.app.mymoney.report.ReportActivity;
 import ir.adicom.app.mymoney.util.ActivityUtils;
 import ir.adicom.app.mymoney.util.AppExecutors;
 
@@ -109,6 +110,10 @@ public class CategoriesActivity extends AppCompatActivity {
                                 break;
                             case R.id.list_navigation_menu_item_chart:
                                 startActivity(new Intent(getApplicationContext(), ChartActivity.class));
+                                finish();
+                                break;
+                            case R.id.list_navigation_menu_item_report:
+                                startActivity(new Intent(getApplicationContext(), ReportActivity.class));
                                 finish();
                                 break;
                             default:

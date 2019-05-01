@@ -1,4 +1,4 @@
-package ir.adicom.app.mymoney.chart;
+package ir.adicom.app.mymoney.report;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,11 +11,12 @@ import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 
 /**
  * Created by Y.P on 28/08/2018.
+ * Modified 01/05/2019
  */
 
-public class ReportPresenter implements ChartContract.Presenter, ExpensesDataSource.LoadExpensesCallback {
+public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSource.LoadExpensesCallback {
 
-    private ChartContract.View mRegisterView;
+    private ReportContract.View mView;
     private CategoriesDataSource mCategoriesDataSource;
     private ExpensesDataSource mExpensesDataSource;
     private List<Category> mCategories;
@@ -23,11 +24,11 @@ public class ReportPresenter implements ChartContract.Presenter, ExpensesDataSou
     private Map<Long, Long> exensesByCat = new HashMap<>();
     private int categoriesCount = 0;
 
-    public ReportPresenter(ChartContract.View registerView, CategoriesDataSource cds, ExpensesDataSource eds) {
-        this.mRegisterView = registerView;
+    public ReportPresenter(ReportContract.View registerView, CategoriesDataSource cds, ExpensesDataSource eds) {
+        this.mView = registerView;
         mCategoriesDataSource = cds;
         mExpensesDataSource = eds;
-        this.mRegisterView.setPresenter(this);
+        this.mView.setPresenter(this);
     }
 
     @Override
@@ -79,7 +80,8 @@ public class ReportPresenter implements ChartContract.Presenter, ExpensesDataSou
         }
         categoriesCount--;
         if (categoriesCount == 0) {
-            mRegisterView.initializeChart(exensesByCat);
+//            mView.initializeChart(exensesByCat);
+            mView.setReportList();
         }
     }
 

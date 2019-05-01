@@ -18,8 +18,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.adicom.app.mymoney.App;
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.categories.CategoriesActivity;
-import ir.adicom.app.mymoney.chart.ReportContract;
-import ir.adicom.app.mymoney.chart.ReportFragment;
+import ir.adicom.app.mymoney.chart.ChartActivity;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.data.source.local.CategoriesLocalDataSource;
@@ -36,7 +35,7 @@ public class ReportActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chart);
+        setContentView(R.layout.activity_report);
 
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
@@ -56,16 +55,16 @@ public class ReportActivity extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
-        ReportFragment registerFragment = (ReportFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (registerFragment == null) {
-            registerFragment = new ReportFragment();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), registerFragment, R.id.contentFrame);
+        ReportFragment reportFragment = (ReportFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (reportFragment == null) {
+            reportFragment = new ReportFragment();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), reportFragment, R.id.contentFrame);
         }
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
         ExpensesDataSource eds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
-//        mPresenter = new ReportFragment(registerFragment, cds, eds);
+        mPresenter = new ReportPresenter(reportFragment, cds, eds);
     }
 
     @Override
@@ -114,6 +113,10 @@ public class ReportActivity extends AppCompatActivity {
                                 break;
                             case R.id.list_navigation_menu_item_categories:
                                 startActivity(new Intent(getApplicationContext(), CategoriesActivity.class));
+                                finish();
+                                break;
+                            case R.id.list_navigation_menu_item_chart:
+                                startActivity(new Intent(getApplicationContext(), ChartActivity.class));
                                 finish();
                                 break;
                             default:
