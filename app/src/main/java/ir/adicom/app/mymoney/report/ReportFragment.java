@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.data.Expense;
@@ -49,29 +50,33 @@ public class ReportFragment extends Fragment implements ReportContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mReportAdapter = new ReportAdapter(new ArrayList<Expense>(0));
+        mReportAdapter = new ReportAdapter(new ArrayList<String>(0));
     }
 
     @Override
-    public void setReportList() {
-        mReportAdapter.replaceData(expenses);
+    public void setReportList(Map<String, Long> expensesByCat) {
+        List<String> temp = new ArrayList<>();
+        for (Map.Entry<String, Long> entry : expensesByCat.entrySet()) {
+            temp.add(entry.getKey() + "," + entry.getValue());
+        }
+        mReportAdapter.replaceData(temp);
         lvReport.setAdapter(mReportAdapter);
     }
 
     private static class ReportAdapter extends BaseAdapter {
 
-        private List<Expense> mExpenses;
+        private List<String> mExpenses;
 
-        public ReportAdapter(List<Expense> expenses) {
+        public ReportAdapter(List<String> expenses) {
             setList(expenses);
         }
 
-        public void replaceData(List<Expense> expenses) {
+        public void replaceData(List<String> expenses) {
             setList(expenses);
             notifyDataSetChanged();
         }
 
-        private void setList(List<Expense> expenses) {
+        private void setList(List<String> expenses) {
             mExpenses = expenses;
         }
 
@@ -81,7 +86,7 @@ public class ReportFragment extends Fragment implements ReportContract.View {
         }
 
         @Override
-        public Expense getItem(int i) {
+        public String getItem(int i) {
             return mExpenses.get(i);
         }
 
@@ -95,12 +100,15 @@ public class ReportFragment extends Fragment implements ReportContract.View {
             View rowView = view;
             if (rowView == null) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                rowView = inflater.inflate(R.layout.category_item, viewGroup, false);
+                rowView = inflater.inflate(R.layout.report_item, viewGroup, false);
             }
 
-            final Expense expense = getItem(i);
-            TextView tvItem = (TextView) rowView.findViewById(R.id.tv_item);
-            tvItem.setText(expense.getTitle());
+            final String[] strings = getItem(i).split(",");
+
+            TextView tvTitle = (TextView) rowView.findViewById(R.id.tv_title);
+            tvTitle.setText(strings[0]);
+            TextView tvPrice = (TextView) rowView.findViewById(R.id.tv_price);
+            tvPrice.setText(strings[1] + " تومان");
 
             return rowView;
         }

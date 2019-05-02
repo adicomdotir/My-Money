@@ -21,7 +21,7 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     private ExpensesDataSource mExpensesDataSource;
     private List<Category> mCategories;
     private List<Expense> mExpense;
-    private Map<Long, Long> exensesByCat = new HashMap<>();
+    private Map<String, Long> exensesByCat = new HashMap<>();
     private int categoriesCount = 0;
 
     public ReportPresenter(ReportContract.View registerView, CategoriesDataSource cds, ExpensesDataSource eds) {
@@ -76,12 +76,12 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
             Long price = exensesByCat.get(expenses.get(i).getCategoryId());
             price = price == null ? 0 : price;
             price = price + expenses.get(i).getPrice();
-            exensesByCat.put(expenses.get(i).getCategoryId(), price);
+            exensesByCat.put(expenses.get(i).getTitle(), price);
         }
         categoriesCount--;
         if (categoriesCount == 0) {
 //            mView.initializeChart(exensesByCat);
-            mView.setReportList();
+            mView.setReportList(exensesByCat);
         }
     }
 
