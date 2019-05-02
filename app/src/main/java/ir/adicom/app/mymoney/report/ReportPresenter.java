@@ -73,10 +73,10 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     public void onExpensesLoaded(List<Expense> expenses) {
         mExpense = expenses;
         for (int i = 0; i < expenses.size(); i++) {
-            Long price = exensesByCat.get(expenses.get(i).getCategoryId());
+            Long price = exensesByCat.get(expenses.get(i).getCategory().getTitle());
             price = price == null ? 0 : price;
             price = price + expenses.get(i).getPrice();
-            exensesByCat.put(expenses.get(i).getTitle(), price);
+            exensesByCat.put(expenses.get(i).getCategory().getTitle(), price);
         }
         categoriesCount--;
         if (categoriesCount == 0) {

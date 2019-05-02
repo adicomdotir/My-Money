@@ -10,8 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import ir.adicom.app.mymoney.R;
@@ -108,7 +110,8 @@ public class ReportFragment extends Fragment implements ReportContract.View {
             TextView tvTitle = (TextView) rowView.findViewById(R.id.tv_title);
             tvTitle.setText(strings[0]);
             TextView tvPrice = (TextView) rowView.findViewById(R.id.tv_price);
-            tvPrice.setText(strings[1] + " تومان");
+            String priceWithFormat = NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(strings[1]));
+            tvPrice.setText(priceWithFormat + " تومان");
 
             return rowView;
         }
