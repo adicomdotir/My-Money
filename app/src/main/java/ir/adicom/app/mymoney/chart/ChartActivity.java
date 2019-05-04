@@ -55,16 +55,16 @@ public class ChartActivity extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
-        ChartFragment registerFragment = (ChartFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        if (registerFragment == null) {
-            registerFragment = new ChartFragment();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), registerFragment, R.id.contentFrame);
+        ChartFragment chartFragment = (ChartFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (chartFragment == null) {
+            chartFragment = new ChartFragment();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), chartFragment, R.id.contentFrame);
         }
 
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
         ExpensesDataSource eds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
-        mPresenter = new ChartPresenter(registerFragment, cds, eds);
+        mPresenter = new ChartPresenter(chartFragment, cds, eds);
     }
 
     @Override

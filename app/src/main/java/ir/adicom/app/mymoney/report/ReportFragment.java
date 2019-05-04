@@ -56,9 +56,9 @@ public class ReportFragment extends Fragment implements ReportContract.View {
     }
 
     @Override
-    public void setReportList(Map<String, Long> expensesByCat) {
+    public void setReportList(Map<String, Long> itemByCat) {
         List<String> temp = new ArrayList<>();
-        for (Map.Entry<String, Long> entry : expensesByCat.entrySet()) {
+        for (Map.Entry<String, Long> entry : itemByCat.entrySet()) {
             temp.add(entry.getKey() + "," + entry.getValue());
         }
         mReportAdapter.replaceData(temp);
@@ -67,29 +67,29 @@ public class ReportFragment extends Fragment implements ReportContract.View {
 
     private static class ReportAdapter extends BaseAdapter {
 
-        private List<String> mExpenses;
+        private List<String> mItems;
 
-        public ReportAdapter(List<String> expenses) {
-            setList(expenses);
+        public ReportAdapter(List<String> item) {
+            setList(item);
         }
 
-        public void replaceData(List<String> expenses) {
-            setList(expenses);
+        public void replaceData(List<String> item) {
+            setList(item);
             notifyDataSetChanged();
         }
 
-        private void setList(List<String> expenses) {
-            mExpenses = expenses;
+        private void setList(List<String> item) {
+            mItems = item;
         }
 
         @Override
         public int getCount() {
-            return mExpenses.size();
+            return mItems.size();
         }
 
         @Override
         public String getItem(int i) {
-            return mExpenses.get(i);
+            return mItems.get(i);
         }
 
         @Override
@@ -108,8 +108,9 @@ public class ReportFragment extends Fragment implements ReportContract.View {
             final String[] strings = getItem(i).split(",");
 
             TextView tvTitle = (TextView) rowView.findViewById(R.id.tv_title);
-            tvTitle.setText(strings[0]);
             TextView tvPrice = (TextView) rowView.findViewById(R.id.tv_price);
+            
+			tvTitle.setText(strings[0]);
             String priceWithFormat = NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(strings[1]));
             tvPrice.setText(priceWithFormat + " تومان");
 
