@@ -2,6 +2,7 @@ package ir.adicom.app.mymoney.report;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import ir.adicom.app.mymoney.R;
-import ir.adicom.app.mymoney.data.Expense;
+import ir.adicom.app.mymoney.util.FilterDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +42,15 @@ public class ReportFragment extends Fragment implements ReportContract.View {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         lvReport = (ListView) view.findViewById(R.id.report_list);
+
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_filter);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FilterDialog filterDialog = new FilterDialog();
+                filterDialog.show(getActivity().getSupportFragmentManager(), "filter_dialog");
+            }
+        });
     }
 
     @Override
