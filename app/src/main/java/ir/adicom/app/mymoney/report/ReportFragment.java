@@ -18,6 +18,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import ir.adicom.app.mymoney.R;
+import ir.adicom.app.mymoney.data.Category;
 import ir.adicom.app.mymoney.util.FilterDialog;
 
 /**
@@ -28,6 +29,7 @@ public class ReportFragment extends Fragment implements ReportContract.View {
     private ReportContract.Presenter mPresenter;
     private ListView lvReport;
     private ReportAdapter mReportAdapter;
+    private FloatingActionButton fab;
 
     public ReportFragment() {
     }
@@ -43,14 +45,9 @@ public class ReportFragment extends Fragment implements ReportContract.View {
         super.onViewCreated(view, savedInstanceState);
         lvReport = (ListView) view.findViewById(R.id.report_list);
 
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_filter);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FilterDialog filterDialog = new FilterDialog();
-                filterDialog.show(getActivity().getSupportFragmentManager(), "filter_dialog");
-            }
-        });
+        mPresenter.loadCategoriesForDialog();
+
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_filter);
     }
 
     @Override
@@ -73,6 +70,26 @@ public class ReportFragment extends Fragment implements ReportContract.View {
         }
         mReportAdapter.replaceData(temp);
         lvReport.setAdapter(mReportAdapter);
+    }
+
+    @Override
+    public void initDialog(List<Category> categories) {
+        final String[] array = new String[categories.size() + 1];
+        array[0] = "همه";
+        for (int i = 0; i < categories.size(); i++) {
+            array[i + 1] = categories.get(i).getTitle();
+        }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FilterDialog filterDialog = new FilterDialog();
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("CATEGORY", array);
+                filterDialog.setArguments(bundle);
+                filterDialog.show(getActivity().getSupportFragmentManager(), "filter_dialog");
+            }
+        });
     }
 
     private static class ReportAdapter extends BaseAdapter {

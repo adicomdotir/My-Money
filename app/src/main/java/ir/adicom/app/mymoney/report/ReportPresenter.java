@@ -65,6 +65,21 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
         return null;
     }
 
+    @Override
+    public void loadCategoriesForDialog() {
+        mCategoriesDataSource.getCategories(new CategoriesDataSource.LoadCategoriesCallback() {
+            @Override
+            public void onCategoriesLoaded(List<Category> categories) {
+                mView.initDialog(categories);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
+    }
+
     public void loadExpenseByCategory(Long id) {
         mExpensesDataSource.getExpenseByCategory(id, this);
     }

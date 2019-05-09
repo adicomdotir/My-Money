@@ -41,7 +41,7 @@ public class ReportActivity extends AppCompatActivity {
 
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.categories_text);
+        toolbar.setTitle(R.string.report_text);
         setSupportActionBar(toolbar);
 		
         ActionBar ab = getSupportActionBar();
