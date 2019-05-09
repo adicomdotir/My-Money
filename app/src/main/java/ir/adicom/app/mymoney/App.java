@@ -40,21 +40,14 @@ public class App extends Application {
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
 
-        // SEED
-//        CategoryDao categoryDao = daoSession.getCategoryDao();
-//        if (categoryDao.load(1L) == null) {
-//            categoryDao.insert(new Category(1L, "نمونه یک"));
-//        }
-//        if (categoryDao.load(2L) == null) {
-//            categoryDao.insert(new Category(2L, "نمونه دو"));
-//        }
-//        ExpenseDao expenseDao = daoSession.getExpenseDao();
-//        if (expenseDao.load(1L) == null) {
-//            expenseDao.insert(new Expense(1L, "هزینه یک", 50_000L, 1L, System.currentTimeMillis()));
-//        }
-//        if (expenseDao.load(2L) == null) {
-//            expenseDao.insert(new Expense(2L, "هزینه دو", 150_000L, 2L, System.currentTimeMillis()));
-//        }
+        // Seed
+        if(daoSession.getCategoryDao().loadAll().size() == 0) {
+            CategoryDao categoryDao = daoSession.getCategoryDao();
+            categoryDao.insert(new Category(1L, "خوراک"));
+            categoryDao.insert(new Category(2L, "پوشاک"));
+            categoryDao.insert(new Category(3L, "وسیله نقلیه"));
+            categoryDao.insert(new Category(4L, "سایر"));
+        }
     }
 
     public DaoSession getDaoSession() {
