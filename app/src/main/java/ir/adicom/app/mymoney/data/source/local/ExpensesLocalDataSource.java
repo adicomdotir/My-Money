@@ -86,7 +86,38 @@ public class ExpensesLocalDataSource implements ExpensesDataSource {
             public void run() {
                 final List<Expense> expenses = mExpenseDao.queryBuilder()
                         .where(ExpenseDao.Properties.CategoryId.eq(categoryId))
+                        .orderDesc(ExpenseDao.Properties.Date, ExpenseDao.Properties.Id)
                         .list();
+
+                mAppExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (expenses.isEmpty()) {
+                            // This will be called if the table is new or just empty.
+                            callback.onDataNotAvailable();
+                        } else {
+                            callback.onExpensesLoaded(expenses);
+                        }
+                    }
+                });
+            }
+        };
+
+        mAppExecutors.diskIO().execute(runnable);
+    }
+	
+	@Override
+	public void getExpensesGroupBy(LoadExpensesCallback callback) {
+		Runnable runnable = new Runnable() {
+            @Override
+            public void run() 
+				Query<User> query = userDao.queryBuilder().where(
+						new StringCondition("SELECT USER_ID FROM USER_MESSAGE WHERE READ_FLAG = 0")
+					).build();
+					
+				final List<Expense> expenses = mExpenseDao.queryBuilder()
+					.where(new StringCondition("GROUP BY categoryId"))
+					.list();
 
                 mAppExecutors.mainThread().execute(new Runnable() {
                     @Override
