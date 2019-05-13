@@ -111,13 +111,12 @@ public class ExpensesLocalDataSource implements ExpensesDataSource {
 		Runnable runnable = new Runnable() {
             @Override
             public void run() 
-				Query<User> query = userDao.queryBuilder().where(
-						new StringCondition("SELECT USER_ID FROM USER_MESSAGE WHERE READ_FLAG = 0")
+				// Todo: sql query isn't valid! return other model
+				Query<Filter> query = mExpenseDao.queryBuilder().where(
+						new StringCondition("SELECT sum(price) as sum, count(price) as count, categoryId FROM expenses GROUP BY categoryId")
 					).build();
 					
-				final List<Expense> expenses = mExpenseDao.queryBuilder()
-					.where(new StringCondition("GROUP BY categoryId"))
-					.list();
+				final List<Filter> expenses = query.list();
 
                 mAppExecutors.mainThread().execute(new Runnable() {
                     @Override

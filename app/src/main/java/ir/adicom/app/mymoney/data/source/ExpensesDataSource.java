@@ -13,6 +13,8 @@ public interface ExpensesDataSource {
 
     void getExpenseByCategory(Long categoryId, LoadExpensesCallback callback);
 	
+	void getExpensesGroupBy(@NonNull LoadExpensesCallback callback);
+	
     void saveExpense(@NonNull Expense expense);
 
     void updateExpense(Expense expense);
