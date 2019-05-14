@@ -113,7 +113,7 @@ public class ExpensesLocalDataSource implements ExpensesDataSource {
             public void run() 
 				// Todo: sql query isn't valid! return other model
 				Query<Filter> query = mExpenseDao.queryBuilder().where(
-						new StringCondition("SELECT sum(price) as sum, count(price) as count, categoryId FROM expenses GROUP BY categoryId")
+						new StringCondition("SELECT sum(price) as sum, count(price) as count, categoryId FROM expenses INNER JOIN categories on categoryId == categories.id GROUP BY categoryId")
 					).build();
 					
 				final List<Filter> expenses = query.list();
