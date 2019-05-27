@@ -4,9 +4,13 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import ir.adicom.app.mymoney.data.DaoSession;
 import ir.adicom.app.mymoney.data.Expense;
+import ir.adicom.app.mymoney.data.Filter;
 
 public interface ExpensesDataSource {
+    void setSessionDao(DaoSession dao);
+
     void getExpenses(@NonNull LoadExpensesCallback callback);
 
     void getExpense(@NonNull Long id, @NonNull GetExpenseCallback callback);
@@ -28,6 +32,8 @@ public interface ExpensesDataSource {
         void onExpensesLoaded(List<Expense> expenses);
 
         void onDataNotAvailable();
+
+        void onFiltersLoaded(List<Filter> filters);
     }
 
     interface GetExpenseCallback {

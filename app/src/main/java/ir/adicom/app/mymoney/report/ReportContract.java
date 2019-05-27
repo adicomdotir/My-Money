@@ -6,6 +6,7 @@ import java.util.Map;
 import ir.adicom.app.mymoney.BasePresenter;
 import ir.adicom.app.mymoney.BaseView;
 import ir.adicom.app.mymoney.data.Category;
+import ir.adicom.app.mymoney.data.Filter;
 
 /**
  *
@@ -14,7 +15,7 @@ import ir.adicom.app.mymoney.data.Category;
 
 public interface ReportContract {
     interface View extends BaseView<Presenter> {
-        void setReportList(Map<String, Long> exensesByCat);
+        void setReportList(List<Filter> exensesByCat);
 
         void initDialog(List<Category> categories);
     }

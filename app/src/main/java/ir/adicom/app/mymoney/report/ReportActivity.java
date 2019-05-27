@@ -65,7 +65,9 @@ public class ReportActivity extends AppCompatActivity {
         AppExecutors appExecutors = new AppExecutors();
         CategoriesDataSource cds = CategoriesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getCategoryDao());
         ExpensesDataSource eds = ExpensesLocalDataSource.getInstance(appExecutors, ((App) getApplication()).getDaoSession().getExpenseDao());
+        eds.setSessionDao(((App) getApplication()).getDaoSession());
         mPresenter = new ReportPresenter(reportFragment, cds, eds);
+
     }
 
     @Override

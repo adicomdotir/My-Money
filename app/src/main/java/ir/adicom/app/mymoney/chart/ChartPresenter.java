@@ -6,6 +6,7 @@ import java.util.Map;
 
 import ir.adicom.app.mymoney.data.Category;
 import ir.adicom.app.mymoney.data.Expense;
+import ir.adicom.app.mymoney.data.Filter;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 
@@ -87,5 +88,10 @@ public class ChartPresenter implements ChartContract.Presenter, ExpensesDataSour
     public void onDataNotAvailable() {
         mExpense = null;
         categoriesCount--;
+    }
+
+    @Override
+    public void onFiltersLoaded(List<Filter> filters) {
+
     }
 }

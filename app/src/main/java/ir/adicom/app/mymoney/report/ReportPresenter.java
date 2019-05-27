@@ -1,11 +1,14 @@
 package ir.adicom.app.mymoney.report;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import ir.adicom.app.mymoney.data.Category;
 import ir.adicom.app.mymoney.data.Expense;
+import ir.adicom.app.mymoney.data.Filter;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 
@@ -38,21 +41,23 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
 
     @Override
     public void loadCategories() {
-        mCategoriesDataSource.getCategories(new CategoriesDataSource.LoadCategoriesCallback() {
-            @Override
-            public void onCategoriesLoaded(List<Category> categories) {
-                mCategories = categories;
-                categoriesCount = categories.size();
-                for (int i = 0; i < mCategories.size(); i++) {
-                    loadExpenseByCategory(mCategories.get(i).getId());
-                }
-            }
 
-            @Override
-            public void onDataNotAvailable() {
-
-            }
-        });
+        mExpensesDataSource.getExpensesGroupBy(this);
+//        mCategoriesDataSource.getCategories(new CategoriesDataSource.LoadCategoriesCallback() {
+//            @Override
+//            public void onCategoriesLoaded(List<Category> categories) {
+//                mCategories = categories;
+//                categoriesCount = categories.size();
+//                for (int i = 0; i < mCategories.size(); i++) {
+//                    loadExpenseByCategory(mCategories.get(i).getId());
+//                }
+//            }
+//
+//            @Override
+//            public void onDataNotAvailable() {
+//
+//            }
+//        });
     }
 
     @Override
@@ -96,7 +101,7 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
         categoriesCount--;
         if (categoriesCount == 0) {
 //            mView.initializeChart(exensesByCat);
-            mView.setReportList(exensesByCat);
+//            mView.setReportList(exensesByCat);
         }
     }
 
@@ -104,5 +109,10 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     public void onDataNotAvailable() {
         mExpense = null;
         categoriesCount--;
+    }
+
+    @Override
+    public void onFiltersLoaded(List<Filter> filters) {
+        mView.setReportList(filters);
     }
 }

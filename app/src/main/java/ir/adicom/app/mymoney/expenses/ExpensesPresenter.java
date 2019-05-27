@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import ir.adicom.app.mymoney.data.Expense;
+import ir.adicom.app.mymoney.data.Filter;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 
 /**
@@ -37,6 +38,11 @@ public class ExpensesPresenter implements ExpensesContract.Presenter {
 
             @Override
             public void onDataNotAvailable() {
+
+            }
+
+            @Override
+            public void onFiltersLoaded(List<Filter> filters) {
 
             }
         });

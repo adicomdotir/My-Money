@@ -1,11 +1,17 @@
 package ir.adicom.app.mymoney.data.source.local;
 
+import android.database.Cursor;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import ir.adicom.app.mymoney.data.CategoryDao;
+import ir.adicom.app.mymoney.data.DaoSession;
 import ir.adicom.app.mymoney.data.Expense;
 import ir.adicom.app.mymoney.data.ExpenseDao;
+import ir.adicom.app.mymoney.data.Filter;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.util.AppExecutors;
 
@@ -14,6 +20,7 @@ public class ExpensesLocalDataSource implements ExpensesDataSource {
     private static volatile ExpensesLocalDataSource INSTANCE;
     private ExpenseDao mExpenseDao;
     private AppExecutors mAppExecutors;
+    private DaoSession mDaoSession;
 
     private ExpensesLocalDataSource(@NonNull AppExecutors appExecutors, @NonNull ExpenseDao expenseDao) {
         mAppExecutors = appExecutors;
@@ -29,6 +36,11 @@ public class ExpensesLocalDataSource implements ExpensesDataSource {
             }
         }
         return INSTANCE;
+    }
+
+    @Override
+    public void setSessionDao(DaoSession dao) {
+        mDaoSession = dao;
     }
 
     @Override
@@ -107,25 +119,28 @@ public class ExpensesLocalDataSource implements ExpensesDataSource {
     }
 	
 	@Override
-	public void getExpensesGroupBy(LoadExpensesCallback callback) {
+	public void getExpensesGroupBy(final LoadExpensesCallback callback) {
 		Runnable runnable = new Runnable() {
             @Override
-            public void run() 
+            public void run() {
 				// Todo: sql query isn't valid! return other model
-				Query<Filter> query = mExpenseDao.queryBuilder().where(
-						new StringCondition("SELECT sum(price) as sum, count(price) as count, categoryId FROM expenses INNER JOIN categories on categoryId == categories.id GROUP BY categoryId")
-					).build();
-					
-				final List<Filter> expenses = query.list();
+                Cursor cursor = mDaoSession.getDatabase()
+                        .rawQuery("SELECT sum(" + ExpenseDao.Properties.Price.columnName + ") as sum, count(" + ExpenseDao.Properties.Price.columnName + ") as count, CATEGORY.TITLE FROM " + mExpenseDao.getTablename() + " INNER JOIN " + mDaoSession.getCategoryDao().getTablename() + " on " + ExpenseDao.Properties.CategoryId.columnName + " == CATEGORY._id GROUP BY " + ExpenseDao.Properties.CategoryId.columnName + " ORDER BY sum DESC", new String []{});
+
+				final List<Filter> filters = new ArrayList<>();
+
+                while (cursor.moveToNext()) {
+                    filters.add(new Filter(cursor.getLong(0), cursor.getLong(1), cursor.getString(2)));
+                }
 
                 mAppExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        if (expenses.isEmpty()) {
+                        if (filters.isEmpty()) {
                             // This will be called if the table is new or just empty.
                             callback.onDataNotAvailable();
                         } else {
-                            callback.onExpensesLoaded(expenses);
+                            callback.onFiltersLoaded(filters);
                         }
                     }
                 });

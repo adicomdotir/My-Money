@@ -7,18 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.data.Category;
+import ir.adicom.app.mymoney.data.Filter;
 import ir.adicom.app.mymoney.util.FilterDialog;
 
 /**
@@ -59,16 +56,12 @@ public class ReportFragment extends Fragment implements ReportContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mReportAdapter = new ReportAdapter(new ArrayList<String>(0));
+        mReportAdapter = new ReportAdapter(new ArrayList<Filter>(0));
     }
 
     @Override
-    public void setReportList(Map<String, Long> itemByCat) {
-        List<String> temp = new ArrayList<>();
-        for (Map.Entry<String, Long> entry : itemByCat.entrySet()) {
-            temp.add(entry.getKey() + "," + entry.getValue());
-        }
-        mReportAdapter.replaceData(temp);
+    public void setReportList(List<Filter> filters) {
+        mReportAdapter.replaceData(filters);
         lvReport.setAdapter(mReportAdapter);
     }
 
