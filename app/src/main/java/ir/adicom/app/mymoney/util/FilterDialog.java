@@ -1,6 +1,7 @@
 package ir.adicom.app.mymoney.util;
 
 /**
+ *
  * Created by Y.P on 5/8/2019.
  */
 
@@ -16,10 +17,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import ir.adicom.app.mymoney.R;
+import ir.adicom.app.mymoney.report.ReportContract;
 
 public class FilterDialog extends DialogFragment {
 
     private String[] catArray;
+    private ReportContract.ReportDialogListener dialogListener;
+
+    public void setDialogListener(ReportContract.ReportDialogListener dialogListener) {
+        this.dialogListener = dialogListener;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +52,7 @@ public class FilterDialog extends DialogFragment {
         builder.setPositiveButton("اعمال", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                dialogListener.dialogClose();
             }
         });
 

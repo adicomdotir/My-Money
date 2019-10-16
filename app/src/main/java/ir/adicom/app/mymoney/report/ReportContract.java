@@ -1,7 +1,6 @@
 package ir.adicom.app.mymoney.report;
 
 import java.util.List;
-import java.util.Map;
 
 import ir.adicom.app.mymoney.BasePresenter;
 import ir.adicom.app.mymoney.BaseView;
@@ -27,5 +26,11 @@ public interface ReportContract {
 
         void loadCategoriesForDialog();
 
+        void loadExpenses();
+
+    }
+
+    interface ReportDialogListener {
+        void dialogClose();
     }
 }

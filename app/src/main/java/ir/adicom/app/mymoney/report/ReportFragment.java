@@ -11,7 +11,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import ir.adicom.app.mymoney.R;
 import ir.adicom.app.mymoney.data.Category;
@@ -21,7 +20,7 @@ import ir.adicom.app.mymoney.util.FilterDialog;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReportFragment extends Fragment implements ReportContract.View {
+public class ReportFragment extends Fragment implements ReportContract.View, ReportContract.ReportDialogListener {
 
     private ReportContract.Presenter mPresenter;
     private ListView lvReport;
@@ -73,15 +72,23 @@ public class ReportFragment extends Fragment implements ReportContract.View {
             array[i + 1] = categories.get(i).getTitle();
         }
 
+        final ReportContract.ReportDialogListener rdl = this;
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FilterDialog filterDialog = new FilterDialog();
+                filterDialog.setDialogListener(rdl);
                 Bundle bundle = new Bundle();
                 bundle.putStringArray("CATEGORY", array);
                 filterDialog.setArguments(bundle);
                 filterDialog.show(getActivity().getSupportFragmentManager(), "filter_dialog");
             }
         });
+    }
+
+    @Override
+    public void dialogClose() {
+        mPresenter.loadExpenses();
     }
 }

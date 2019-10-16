@@ -1,7 +1,7 @@
 package ir.adicom.app.mymoney.report;
 
-import android.util.Log;
-
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +11,7 @@ import ir.adicom.app.mymoney.data.Expense;
 import ir.adicom.app.mymoney.data.Filter;
 import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
+import ir.adicom.app.mymoney.util.CalendarTool;
 
 /**
  * Created by Y.P on 28/08/2018.
@@ -26,6 +27,7 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     private List<Expense> mExpense;
     private Map<String, Long> exensesByCat = new HashMap<>();
     private int categoriesCount = 0;
+    private Map<String, Long> filterdExpenses = new HashMap<>();
 
     public ReportPresenter(ReportContract.View registerView, CategoriesDataSource cds, ExpensesDataSource eds) {
         this.mView = registerView;
@@ -85,24 +87,27 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
         });
     }
 
+    @Override
+    public void loadExpenses() {
+        mExpensesDataSource.getExpenses(this);
+
+    }
+
     public void loadExpenseByCategory(Long id) {
         mExpensesDataSource.getExpenseByCategory(id, this);
     }
 
     @Override
     public void onExpensesLoaded(List<Expense> expenses) {
-        mExpense = expenses;
-        for (int i = 0; i < expenses.size(); i++) {
-            Long price = exensesByCat.get(expenses.get(i).getCategory().getTitle());
-            price = price == null ? 0 : price;
-            price = price + expenses.get(i).getPrice();
-            exensesByCat.put(expenses.get(i).getCategory().getTitle(), price);
+        for (Expense expense : expenses) {
+            addToMap(getStringDate(expense.getDate()), expense.getPrice());
         }
-        categoriesCount--;
-        if (categoriesCount == 0) {
-//            mView.initializeChart(exensesByCat);
-//            mView.setReportList(exensesByCat);
+
+        List<Filter> filters = new ArrayList<>();
+        for (Map.Entry<String, Long> entry : filterdExpenses.entrySet()) {
+            filters.add(new Filter(entry.getValue(), 0, entry.getKey()));
         }
+        mView.setReportList(filters);
     }
 
     @Override
@@ -114,5 +119,24 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     @Override
     public void onFiltersLoaded(List<Filter> filters) {
         mView.setReportList(filters);
+    }
+
+    private void addToMap(String date, long price) {
+        int lastIndex = date.lastIndexOf("/");
+        date = date.substring(0, lastIndex);
+        if (filterdExpenses.containsKey(date)) {
+            long p = filterdExpenses.get(date);
+            p += price;
+            filterdExpenses.put(date, p);
+        } else {
+            filterdExpenses.put(date, price);
+        }
+    }
+
+    private String getStringDate(Long date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+        CalendarTool calendarTool = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+        return calendarTool.getIranianDate();
     }
 }
