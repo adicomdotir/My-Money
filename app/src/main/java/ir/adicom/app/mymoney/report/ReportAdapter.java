@@ -62,7 +62,10 @@ public class ReportAdapter extends BaseAdapter {
 			tvTitle.setText("" + filter.getCategoryId());
             String priceWithFormat = NumberFormat.getNumberInstance(Locale.US).format(filter.getSum());
             tvPrice.setText(priceWithFormat + " تومان");
-            tvCount.setText("تعداد : " + filter.getCount());
+            tvCount.setText("");
+            if (filter.getCount() != 0) {
+                tvCount.setText("تعداد : " + filter.getCount());
+            }
 
             return rowView;
         }

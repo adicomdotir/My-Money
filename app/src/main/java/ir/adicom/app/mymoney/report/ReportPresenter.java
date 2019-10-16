@@ -139,4 +139,39 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
         CalendarTool calendarTool = new CalendarTool(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
         return calendarTool.getIranianDate();
     }
+
+    private String convertNumberToString(String value) {
+        String[] split = value.split("/");
+
+        return split[0] + " " + convertToMonth(split[1]);
+    }
+
+    private String convertToMonth(String value) {
+        if (value.equals("1")) {
+            return "فروردین";
+        } else if (value.equals("2")) {
+            return "فروردین";
+        } else if (value.equals("3")) {
+            return "فروردین";
+        } else if (value.equals("4")) {
+            return "فروردین";
+        } else if (value.equals("5")) {
+            return "فروردین";
+        } else if (value.equals("6")) {
+            return "فروردین";
+        } else if (value.equals("7")) {
+            return "فروردین";
+        } else if (value.equals("8")) {
+            return "فروردین";
+        } else if (value.equals("9")) {
+            return "فروردین";
+        } else if (value.equals("10")) {
+            return "فروردین";
+        } else if (value.equals("11")) {
+            return "فروردین";
+        } else if (value.equals("12")) {
+            return "فروردین";
+        }
+        return "";
+    }
 }
