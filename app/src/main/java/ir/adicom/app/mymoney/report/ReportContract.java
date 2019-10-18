@@ -26,11 +26,11 @@ public interface ReportContract {
 
         void loadCategoriesForDialog();
 
-        void loadExpenses();
+        void loadExpenses(int tag);
 
     }
 
     interface ReportDialogListener {
-        void dialogClose();
+        void dialogClose(int tag);
     }
 }

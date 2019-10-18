@@ -88,7 +88,7 @@ public class ReportFragment extends Fragment implements ReportContract.View, Rep
     }
 
     @Override
-    public void dialogClose() {
-        mPresenter.loadExpenses();
+    public void dialogClose(int tag) {
+        mPresenter.loadExpenses(tag);
     }
 }

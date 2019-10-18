@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import ir.adicom.app.mymoney.data.Category;
 import ir.adicom.app.mymoney.data.Expense;
@@ -28,6 +29,7 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     private Map<String, Long> exensesByCat = new HashMap<>();
     private int categoriesCount = 0;
     private Map<String, Long> filterdExpenses = new HashMap<>();
+    private int tag = 0;
 
     public ReportPresenter(ReportContract.View registerView, CategoriesDataSource cds, ExpensesDataSource eds) {
         this.mView = registerView;
@@ -88,8 +90,13 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     }
 
     @Override
-    public void loadExpenses() {
-        mExpensesDataSource.getExpenses(this);
+    public void loadExpenses(int tag) {
+        this.tag = tag;
+        if (tag == 2) {
+            mExpensesDataSource.getExpensesGroupBy(this);
+        } else {
+            mExpensesDataSource.getExpenses(this);
+        }
 
     }
 
@@ -99,13 +106,14 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
 
     @Override
     public void onExpensesLoaded(List<Expense> expenses) {
+        filterdExpenses.clear();
         for (Expense expense : expenses) {
             addToMap(getStringDate(expense.getDate()), expense.getPrice());
         }
-
+        TreeMap<String, Long> sorted = new TreeMap<>(filterdExpenses);
         List<Filter> filters = new ArrayList<>();
-        for (Map.Entry<String, Long> entry : filterdExpenses.entrySet()) {
-            filters.add(new Filter(entry.getValue(), 0, entry.getKey()));
+        for (Map.Entry<String, Long> entry : sorted.entrySet()) {
+            filters.add(0, new Filter(entry.getValue(), 0, convertNumberToString(entry.getKey())));
         }
         mView.setReportList(filters);
     }
@@ -122,8 +130,13 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     }
 
     private void addToMap(String date, long price) {
-        int lastIndex = date.lastIndexOf("/");
-        date = date.substring(0, lastIndex);
+        if (tag == 0) {
+            int lastIndex = date.lastIndexOf("/");
+            date = date.substring(0, lastIndex);
+        } else if (tag == 1) {
+            int index = date.indexOf("/");
+            date = date.substring(0, index);
+        }
         if (filterdExpenses.containsKey(date)) {
             long p = filterdExpenses.get(date);
             p += price;
@@ -141,37 +154,39 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     }
 
     private String convertNumberToString(String value) {
-        String[] split = value.split("/");
-
-        return split[0] + " " + convertToMonth(split[1]);
+        if (tag == 0) {
+            String[] split = value.split("/");
+            return split[0] + " " + convertToMonth(split[1]);
+        }
+        return value;
     }
 
     private String convertToMonth(String value) {
         if (value.equals("1")) {
             return "فروردین";
         } else if (value.equals("2")) {
-            return "فروردین";
+            return "اردیبهشت";
         } else if (value.equals("3")) {
-            return "فروردین";
+            return "خرداد";
         } else if (value.equals("4")) {
-            return "فروردین";
+            return "تیر";
         } else if (value.equals("5")) {
-            return "فروردین";
+            return "مرداد";
         } else if (value.equals("6")) {
-            return "فروردین";
+            return "شهریور";
         } else if (value.equals("7")) {
-            return "فروردین";
+            return "مهر";
         } else if (value.equals("8")) {
-            return "فروردین";
+            return "ابان";
         } else if (value.equals("9")) {
-            return "فروردین";
+            return "اذر";
         } else if (value.equals("10")) {
-            return "فروردین";
+            return "دی";
         } else if (value.equals("11")) {
-            return "فروردین";
+            return "بهمن";
         } else if (value.equals("12")) {
-            return "فروردین";
+            return "اسفند";
         }
-        return "";
+        return value;
     }
 }
