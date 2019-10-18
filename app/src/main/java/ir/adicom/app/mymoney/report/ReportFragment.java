@@ -67,9 +67,12 @@ public class ReportFragment extends Fragment implements ReportContract.View, Rep
     @Override
     public void initDialog(List<Category> categories) {
         final String[] array = new String[categories.size() + 1];
+        final long[] idArray = new long[categories.size() + 1];
         array[0] = "همه";
+        idArray[0] = 0;
         for (int i = 0; i < categories.size(); i++) {
             array[i + 1] = categories.get(i).getTitle();
+            idArray[i + 1] = categories.get(i).getId();
         }
 
         final ReportContract.ReportDialogListener rdl = this;
@@ -81,6 +84,7 @@ public class ReportFragment extends Fragment implements ReportContract.View, Rep
                 filterDialog.setDialogListener(rdl);
                 Bundle bundle = new Bundle();
                 bundle.putStringArray("CATEGORY", array);
+                bundle.putLongArray("CATEGORYID", idArray);
                 filterDialog.setArguments(bundle);
                 filterDialog.show(getActivity().getSupportFragmentManager(), "filter_dialog");
             }
@@ -88,7 +92,7 @@ public class ReportFragment extends Fragment implements ReportContract.View, Rep
     }
 
     @Override
-    public void dialogClose(int tag) {
-        mPresenter.loadExpenses(tag);
+    public void dialogClose(int tag, long id) {
+        mPresenter.loadExpenses(tag, id);
     }
 }

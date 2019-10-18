@@ -30,6 +30,7 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     private int categoriesCount = 0;
     private Map<String, Long> filterdExpenses = new HashMap<>();
     private int tag = 0;
+    private long id = 0;
 
     public ReportPresenter(ReportContract.View registerView, CategoriesDataSource cds, ExpensesDataSource eds) {
         this.mView = registerView;
@@ -90,8 +91,9 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     }
 
     @Override
-    public void loadExpenses(int tag) {
+    public void loadExpenses(int tag, long id) {
         this.tag = tag;
+        this.id = id;
         if (tag == 2) {
             mExpensesDataSource.getExpensesGroupBy(this);
         } else {
@@ -108,7 +110,11 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
     public void onExpensesLoaded(List<Expense> expenses) {
         filterdExpenses.clear();
         for (Expense expense : expenses) {
-            addToMap(getStringDate(expense.getDate()), expense.getPrice());
+            if (id == 0) {
+                addToMap(getStringDate(expense.getDate()), expense.getPrice());
+            } else if (id == expense.getCategoryId()) {
+                addToMap(getStringDate(expense.getDate()), expense.getPrice());
+            }
         }
         TreeMap<String, Long> sorted = new TreeMap<>(filterdExpenses);
         List<Filter> filters = new ArrayList<>();
