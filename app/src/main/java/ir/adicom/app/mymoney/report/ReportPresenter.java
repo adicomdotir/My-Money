@@ -14,6 +14,8 @@ import ir.adicom.app.mymoney.data.source.CategoriesDataSource;
 import ir.adicom.app.mymoney.data.source.ExpensesDataSource;
 import ir.adicom.app.mymoney.util.CalendarTool;
 
+import static ir.adicom.app.mymoney.util.HelperMethods.convertToMonth;
+
 /**
  * Created by Y.P on 28/08/2018.
  * Modified 01/05/2019
@@ -164,35 +166,6 @@ public class ReportPresenter implements ReportContract.Presenter, ExpensesDataSo
             String[] split = value.split("/");
             return split[0] + " " + convertToMonth(split[1]);
         }
-        return value;
-    }
-
-    private String convertToMonth(String value) {
-        if (value.equals("1")) {
-            return "فروردین";
-        } else if (value.equals("2")) {
-            return "اردیبهشت";
-        } else if (value.equals("3")) {
-            return "خرداد";
-        } else if (value.equals("4")) {
-            return "تیر";
-        } else if (value.equals("5")) {
-            return "مرداد";
-        } else if (value.equals("6")) {
-            return "شهریور";
-        } else if (value.equals("7")) {
-            return "مهر";
-        } else if (value.equals("8")) {
-            return "ابان";
-        } else if (value.equals("9")) {
-            return "اذر";
-        } else if (value.equals("10")) {
-            return "دی";
-        } else if (value.equals("11")) {
-            return "بهمن";
-        } else if (value.equals("12")) {
-            return "اسفند";
-        }
-        return value;
+        return "سال " + value;
     }
 }
