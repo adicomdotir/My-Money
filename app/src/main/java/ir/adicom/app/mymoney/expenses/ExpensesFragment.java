@@ -19,6 +19,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -143,8 +144,8 @@ public class ExpensesFragment extends Fragment implements ExpensesContract.View 
     }
 
     private void setSpinner() {
-        HashSet<String> stringTreeSet = new HashSet<>();
-        HashSet<String> dateTreeSet = new HashSet<>();
+        LinkedHashSet<String> stringTreeSet = new LinkedHashSet<>();
+        LinkedHashSet<String> dateTreeSet = new LinkedHashSet<>();
         stringTreeSet.add("همه");
         dateTreeSet.add("همه");
         for (Expense ex : mExpenses) {
