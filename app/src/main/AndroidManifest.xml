@@ -3,26 +3,19 @@
     package="ir.adicom.app.mymoney">
 
     <application
-        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".register.RegisterActivity" />
-        <activity android:name=".expenses.ExpensesActivity" />
-        <activity android:name=".categories.CategoriesActivity" />
-        <activity android:name=".addeditexpense.AddEditExpenseActivity" />
-        <activity android:name=".addeditcategory.AddEditCategoryActivity"></activity>
-        <activity android:name=".chart.ChartActivity"></activity>
-        <activity android:name=".report.ReportActivity"></activity>
     </application>
 
 </manifest>
