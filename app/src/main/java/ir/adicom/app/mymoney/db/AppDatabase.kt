@@ -5,10 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import ir.adicom.app.mymoney.models.Category
+import ir.adicom.app.mymoney.models.Expense
 
-@Database(entities = [Category::class], version = 1)
+@Database(entities = [Category::class, Expense::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getCategoryDao(): CategoryDao
+    abstract fun getExpenseDao(): ExpenseDao
 
     companion object {
         @Volatile
