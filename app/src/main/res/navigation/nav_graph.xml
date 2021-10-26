@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/categoryHomeFragment"
-        android:name="ir.adicom.app.mymoney.fragments.CategoryHomeFragment"
+        android:name="ir.adicom.app.mymoney.ui.category.CategoryHomeFragment"
         android:label="CategoryHomeFragment">
         <action
             android:id="@+id/action_categoryHomeFragment_to_newCategoryFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/newCategoryFragment"
-        android:name="ir.adicom.app.mymoney.fragments.NewCategoryFragment"
+        android:name="ir.adicom.app.mymoney.ui.category.NewCategoryFragment"
         android:label="fragment_new_category"
         tools:layout="@layout/fragment_new_category" >
         <action

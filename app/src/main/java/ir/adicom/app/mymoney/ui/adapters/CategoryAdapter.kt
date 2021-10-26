@@ -1,4 +1,4 @@
-package ir.adicom.app.mymoney.fragments.adapters
+package ir.adicom.app.mymoney.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +30,5 @@ class CategoryAdapter(private var categoryList: List<Category>) : RecyclerView.A
     }
 
     inner class CategoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
     }
 }

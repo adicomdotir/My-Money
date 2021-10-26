@@ -1,8 +1,6 @@
-package ir.adicom.app.mymoney.fragments
+package ir.adicom.app.mymoney.ui.category
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,27 +11,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ir.adicom.app.mymoney.R
 import ir.adicom.app.mymoney.db.AppDatabase
-import ir.adicom.app.mymoney.fragments.adapters.CategoryAdapter
+import ir.adicom.app.mymoney.ui.adapters.CategoryAdapter
 import ir.adicom.app.mymoney.models.Category
 import kotlinx.android.synthetic.main.fragment_category_home.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 class CategoryHomeFragment : Fragment() {
-    lateinit var rvCategory: RecyclerView
-    lateinit var categoryAdapter: CategoryAdapter
-    lateinit var navController: NavController
-    var appDatabase: AppDatabase? = null
+    private lateinit var rvCategory: RecyclerView
+    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var navController: NavController
+    private lateinit var appDatabase: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val category = arguments?.getParcelable<Category>("Category")
-        Log.e("TAG", category.toString())
         if (category != null) {
             MainScope().launch {
-                appDatabase?.getCategoryDao()?.addCategory(category)
+                appDatabase.getCategoryDao().addCategory(category)
             }
         }
     }
@@ -47,12 +43,12 @@ class CategoryHomeFragment : Fragment() {
         rvCategory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvCategory.adapter = categoryAdapter
 
-        appDatabase = context?.let { AppDatabase.invoke(it) }
-        appDatabase?.getCategoryDao()?.getAllCategories()?.observe(
+        appDatabase = context.let { AppDatabase.invoke(it!!) }
+        appDatabase.getCategoryDao().getAllCategories().observe(
             viewLifecycleOwner,
             Observer {
                 if (it.isNotEmpty()) {
-                    tv_no_notes_available.visibility = View.GONE
+                    tv_no_categories_available.visibility = View.GONE
                     rvCategory.visibility = View.VISIBLE
                     categoryAdapter.setCategoryList(it)
                 }

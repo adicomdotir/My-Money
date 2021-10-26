@@ -1,4 +1,4 @@
-package ir.adicom.app.mymoney.fragments
+package ir.adicom.app.mymoney.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,17 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import ir.adicom.app.mymoney.R
 
-class NewExpenseFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_new_expense, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 }

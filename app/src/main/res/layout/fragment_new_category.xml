@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.NewCategoryFragment">
+    tools:context=".ui.category.NewCategoryFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_category_title"
