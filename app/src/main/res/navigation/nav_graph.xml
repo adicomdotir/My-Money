@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/categoryHomeFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/categoryHomeFragment"
@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_categoryHomeFragment_to_newCategoryFragment"
             app:destination="@id/newCategoryFragment" />
+        <action
+            android:id="@+id/action_categoryHomeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/newCategoryFragment"
@@ -22,4 +25,32 @@
             android:id="@+id/action_newCategoryFragment_to_categoryHomeFragment"
             app:destination="@id/categoryHomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="ir.adicom.app.mymoney.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_categoryHomeFragment"
+            app:destination="@id/categoryHomeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_expenseHomeFragment"
+            app:destination="@id/expenseHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/expenseHomeFragment"
+        android:name="ir.adicom.app.mymoney.ui.expense.ExpenseHomeFragment"
+        android:label="ExpenseHomeFragment" >
+        <action
+            android:id="@+id/action_expenseHomeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_expenseHomeFragment_to_newExpenseFragment"
+            app:destination="@id/newExpenseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newExpenseFragment"
+        android:name="ir.adicom.app.mymoney.ui.expense.NewExpenseFragment"
+        android:label="fragment_new_expense"
+        tools:layout="@layout/fragment_new_expense" />
 </navigation>

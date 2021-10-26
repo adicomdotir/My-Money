@@ -20,7 +20,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class ExpenseHomeFragment : Fragment() {
-    private lateinit var rvCategory: RecyclerView
+    private lateinit var rvExpense: RecyclerView
     private lateinit var expenseAdapter: ExpenseAdapter
     private lateinit var navController: NavController
     private lateinit var appDatabase: AppDatabase
@@ -48,10 +48,10 @@ class ExpenseHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navController = (activity?.supportFragmentManager?.findFragmentById(R.id.fragment_container_view) as NavHostFragment).navController
-        rvCategory = view.findViewById(R.id.rv_category)
+        rvExpense = view.findViewById(R.id.rv_expense)
         expenseAdapter = ExpenseAdapter(listOf())
-        rvCategory.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rvCategory.adapter = expenseAdapter
+        rvExpense.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvExpense.adapter = expenseAdapter
 
         appDatabase = context.let { AppDatabase.invoke(it!!) }
         appDatabase.getExpenseDao().getAllExpenses().observe(
@@ -59,14 +59,14 @@ class ExpenseHomeFragment : Fragment() {
             Observer {
                 if (it.isNotEmpty()) {
                     tv_no_expenses_available.visibility = View.GONE
-                    rvCategory.visibility = View.VISIBLE
+                    rvExpense.visibility = View.VISIBLE
                     expenseAdapter.setExpenseList(it)
                 }
             }
         )
 
-        view.findViewById<FloatingActionButton>(R.id.fab_category_add).setOnClickListener {
-            navController.navigate(R.id.action_categoryHomeFragment_to_newCategoryFragment)
+        view.findViewById<FloatingActionButton>(R.id.fab_expense_add).setOnClickListener {
+            navController.navigate(R.id.action_expenseHomeFragment_to_newExpenseFragment)
         }
     }
 }
