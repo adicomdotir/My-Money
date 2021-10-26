@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/categoryHomeFragment">
+
+    <fragment
+        android:id="@+id/categoryHomeFragment"
+        android:name="ir.adicom.app.mymoney.fragments.CategoryHomeFragment"
+        android:label="CategoryHomeFragment">
+        <action
+            android:id="@+id/action_categoryHomeFragment_to_newCategoryFragment"
+            app:destination="@id/newCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newCategoryFragment"
+        android:name="ir.adicom.app.mymoney.fragments.NewCategoryFragment"
+        android:label="fragment_new_category"
+        tools:layout="@layout/fragment_new_category" >
+        <action
+            android:id="@+id/action_newCategoryFragment_to_categoryHomeFragment"
+            app:destination="@id/categoryHomeFragment" />
+    </fragment>
+</navigation>

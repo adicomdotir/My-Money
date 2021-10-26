@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -14,6 +16,8 @@ import ir.adicom.app.mymoney.models.Category
 
 
 class NewCategoryFragment : Fragment() {
+    private lateinit var navController: NavController
+    private lateinit var edtCategoryTitle: TextInputLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,31 +33,25 @@ class NewCategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = (activity?.supportFragmentManager?.findFragmentById(R.id.fragment_container_view) as NavHostFragment).navController
+        edtCategoryTitle = view.findViewById<TextInputLayout>(R.id.edt_category_title)
         btnCancelClick(view)
         btnSaveClick(view)
     }
 
     private fun btnSaveClick(view: View) {
-        val edtCategoryTitle = view.findViewById<TextInputLayout>(R.id.edt_category_title)
-        val title = edtCategoryTitle.editText?.text.toString()
         view.findViewById<MaterialButton>(R.id.btn_save).setOnClickListener {
-            val categoryHomeFragment = CategoryHomeFragment()
+            val title = edtCategoryTitle.editText?.text.toString()
             val bundle = Bundle().apply {
                 putParcelable("Category", Category(0, title))
             }
-            categoryHomeFragment.arguments = bundle
-
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fl_fragment_place_holder, categoryHomeFragment)
-                ?.commit()
+            navController.navigate(R.id.action_newCategoryFragment_to_categoryHomeFragment, bundle)
         }
     }
 
     private fun btnCancelClick(view: View) {
         view.findViewById<MaterialButton>(R.id.btn_cancel).setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fl_fragment_place_holder, CategoryHomeFragment())
-                ?.commit()
+            navController.navigate(R.id.action_newCategoryFragment_to_categoryHomeFragment)
         }
     }
 }
