@@ -50,6 +50,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_expenseHomeFragment_to_newExpenseFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -107,8 +112,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="186" />
-                            <option name="y" value="132" />
+                            <option name="x" value="194" />
+                            <option name="y" value="411" />
                           </Point>
                         </option>
                       </LayoutPositions>

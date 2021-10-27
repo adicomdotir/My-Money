@@ -52,5 +52,9 @@
         android:id="@+id/newExpenseFragment"
         android:name="ir.adicom.app.mymoney.ui.expense.NewExpenseFragment"
         android:label="fragment_new_expense"
-        tools:layout="@layout/fragment_new_expense" />
+        tools:layout="@layout/fragment_new_expense" >
+        <action
+            android:id="@+id/action_newExpenseFragment_to_expenseHomeFragment"
+            app:destination="@id/expenseHomeFragment" />
+    </fragment>
 </navigation>
