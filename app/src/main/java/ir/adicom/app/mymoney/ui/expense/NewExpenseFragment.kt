@@ -1,12 +1,10 @@
 package ir.adicom.app.mymoney.ui.expense
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +15,7 @@ import ir.adicom.app.mymoney.R
 import ir.adicom.app.mymoney.db.AppDatabase
 import ir.adicom.app.mymoney.models.Category
 import ir.adicom.app.mymoney.models.Expense
+import ir.adicom.app.mymoney.ui.DatePickerFragment
 import kotlinx.android.synthetic.main.fragment_new_expense.*
 
 
@@ -50,11 +49,17 @@ class NewExpenseFragment : Fragment() {
                 android.R.layout.simple_spinner_item,
                 it
             )
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner_category.adapter = adapter
+//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner_category.setAdapter(adapter)
         })
         btnSaveClick(view)
         btnCancelClick(view)
+
+        btn_picker.setOnClickListener {
+            DatePickerFragment(requireContext())
+                .show(activity?.supportFragmentManager!!, null)
+
+        }
     }
 
     private fun btnCancelClick(view: View) {
@@ -70,10 +75,10 @@ class NewExpenseFragment : Fragment() {
             if (title.isEmpty() || price.isEmpty()) {
                 Toast.makeText(activity, "Some field is empty", Toast.LENGTH_SHORT).show()
             } else {
-                val category: Category = spinner_category.selectedItem as Category
-                val expense = Expense(0, title, price.toLong(), category.id)
+                val expense = Expense(0, title, price.toLong(), 0)
                 val bundle = Bundle().apply {
                     putParcelable("Expense", expense)
+                    putString("CategoryTitle", spinner_category.text.toString())
                 }
                 navController.navigate(
                     R.id.action_newExpenseFragment_to_expenseHomeFragment,
@@ -83,3 +88,4 @@ class NewExpenseFragment : Fragment() {
         }
     }
 }
+

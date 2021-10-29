@@ -20,5 +20,5 @@ data class Expense(
     val id: Int,
     val title: String,
     val price: Long,
-    val categoryId: Int
+    var categoryId: Int
 ): Parcelable {}
