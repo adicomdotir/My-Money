@@ -8,13 +8,15 @@ import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import ir.adicom.app.mymoney.R
 import ir.adicom.app.mymoney.models.Expense
+import saman.zamani.persiandate.PersianDate
 
 class ExpenseAdapter(private var expenseList: List<Expense>): RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
     inner class ExpenseViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val tvExpenseTitle: TextView = itemView.findViewById(R.id.tv_expense_title)
 
         fun bind(expense: Expense) {
-            tvExpenseTitle.text = expense.title
+            val dateStr = PersianDate(expense.date).toString()
+            tvExpenseTitle.text = "${expense.title} ${expense.price} ${dateStr}"
         }
     }
 

@@ -4,6 +4,8 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "expenses", foreignKeys = [
@@ -20,5 +22,6 @@ data class Expense(
     val id: Int,
     val title: String,
     val price: Long,
-    var categoryId: Int
+    var categoryId: Int,
+    val date: Long
 ): Parcelable {}

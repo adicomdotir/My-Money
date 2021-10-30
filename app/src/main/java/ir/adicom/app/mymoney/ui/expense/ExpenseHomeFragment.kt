@@ -43,9 +43,9 @@ class ExpenseHomeFragment : Fragment() {
                 if (categoryId == null) {
                     appDatabase.getCategoryDao().addCategory(Category(0, categoryTitle))
                     categoryId = appDatabase.getCategoryDao().getItemByTitle(categoryTitle)
-                    expense.categoryId = categoryId!!
-                    appDatabase.getExpenseDao().addExpense(expense)
                 }
+                expense.categoryId = categoryId!!
+                appDatabase.getExpenseDao().addExpense(expense)
             }
         }
     }

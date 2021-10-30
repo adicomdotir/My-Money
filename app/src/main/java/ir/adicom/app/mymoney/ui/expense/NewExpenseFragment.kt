@@ -16,13 +16,17 @@ import ir.adicom.app.mymoney.db.AppDatabase
 import ir.adicom.app.mymoney.models.Category
 import ir.adicom.app.mymoney.models.Expense
 import ir.adicom.app.mymoney.ui.DatePickerFragment
+import kotlinx.android.synthetic.main.fragment_date_picker.*
 import kotlinx.android.synthetic.main.fragment_new_expense.*
+import saman.zamani.persiandate.PersianDate
+import java.util.*
 
 
-class NewExpenseFragment : Fragment() {
+class NewExpenseFragment : Fragment(), DatePickerFragment.DateDialogListener {
 
     private lateinit var appDatabase: AppDatabase
     private lateinit var navController: NavController
+    private var dateMillisecond = Date().time
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +53,15 @@ class NewExpenseFragment : Fragment() {
                 android.R.layout.simple_spinner_item,
                 it
             )
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner_category.setAdapter(adapter)
         })
         btnSaveClick(view)
         btnCancelClick(view)
 
+        val persianDate = PersianDate(dateMillisecond)
+        btn_picker.text = "${persianDate.shYear}/${persianDate.shMonth}/${persianDate.shDay}"
         btn_picker.setOnClickListener {
-            DatePickerFragment(requireContext())
+            DatePickerFragment(requireContext(), this)
                 .show(activity?.supportFragmentManager!!, null)
 
         }
@@ -75,7 +80,7 @@ class NewExpenseFragment : Fragment() {
             if (title.isEmpty() || price.isEmpty()) {
                 Toast.makeText(activity, "Some field is empty", Toast.LENGTH_SHORT).show()
             } else {
-                val expense = Expense(0, title, price.toLong(), 0)
+                val expense = Expense(0, title, price.toLong(), 0, dateMillisecond)
                 val bundle = Bundle().apply {
                     putParcelable("Expense", expense)
                     putString("CategoryTitle", spinner_category.text.toString())
@@ -86,6 +91,12 @@ class NewExpenseFragment : Fragment() {
                 )
             }
         }
+    }
+
+    override fun onFinishDateDialog(millisecond: Long) {
+        dateMillisecond = millisecond
+        val persianDate = PersianDate(dateMillisecond)
+        btn_picker.text = "${persianDate.shYear}/${persianDate.shMonth}/${persianDate.shDay}"
     }
 }
 

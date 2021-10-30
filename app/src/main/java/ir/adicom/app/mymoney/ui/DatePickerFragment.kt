@@ -2,20 +2,22 @@ package ir.adicom.app.mymoney.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.DialogFragment
 import ir.adicom.app.mymoney.R
-import ir.adicom.app.mymoney.utils.PersianDate
+import ir.adicom.app.mymoney.ui.expense.NewExpenseFragment
 import kotlinx.android.synthetic.main.fragment_date_picker.*
-import java.time.LocalDate
-import java.time.ZoneId
+import saman.zamani.persiandate.PersianDate
 import java.util.*
 
-class DatePickerFragment(val ctx: Context) : DialogFragment() {
+class DatePickerFragment(val ctx: Context, val dateDialogListener: DateDialogListener) : DialogFragment() {
+
+    interface DateDialogListener {
+        fun onFinishDateDialog(millisecond: Long)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +34,24 @@ class DatePickerFragment(val ctx: Context) : DialogFragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val year = Calendar.getInstance().get(Calendar.YEAR);
-        val month = Calendar.getInstance().get(Calendar.MONTH);
-        val day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         val millis = Calendar.getInstance().timeInMillis
-//        Log.e("TAG", PersianDate(millis).)
+        val persianDate = PersianDate(millis)
+        val year = persianDate.shYear;
+        val month = persianDate.shMonth
+        val day = persianDate.shDay
+
+        sb_year.progress = year - 1350
+        tv_year.text = "Year: ${year}"
+        sb_month.progress = month - 1
+        tv_month.text = "Month: ${month}"
+        sb_day.progress = day - 1
+        tv_day.text = "Day: ${day}"
+
+        btn_confirm_date.setOnClickListener {
+            val dateMillisecond = convertToLong(sb_year.progress + 1350, sb_month.progress + 1, sb_day.progress + 1)
+            dateDialogListener.onFinishDateDialog(dateMillisecond)
+            dismiss()
+        }
 
         sb_year.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
@@ -74,5 +89,9 @@ class DatePickerFragment(val ctx: Context) : DialogFragment() {
             override fun onStopTrackingTouch(p0: SeekBar?) {
             }
         })
+    }
+
+    private fun convertToLong(year: Int, month: Int, day: Int): Long {
+        return PersianDate().initJalaliDate(year, month, day).toDate().time
     }
 }
