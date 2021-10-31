@@ -24,7 +24,7 @@ class DatePickerFragment(val ctx: Context, val dateDialogListener: DateDialogLis
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_date_picker, container)
-        requireDialog().setTitle("Date Picker")
+        requireDialog().setTitle("انتخاب تاریخ")
         return view
     }
 
@@ -41,11 +41,11 @@ class DatePickerFragment(val ctx: Context, val dateDialogListener: DateDialogLis
         val day = persianDate.shDay
 
         sb_year.progress = year - 1350
-        tv_year.text = "Year: ${year}"
+        tv_year.text = "سال: ${year}"
         sb_month.progress = month - 1
-        tv_month.text = "Month: ${month}"
+        tv_month.text = "ماه: ${month}"
         sb_day.progress = day - 1
-        tv_day.text = "Day: ${day}"
+        tv_day.text = "روز: ${day}"
 
         btn_confirm_date.setOnClickListener {
             val dateMillisecond = convertToLong(sb_year.progress + 1350, sb_month.progress + 1, sb_day.progress + 1)
@@ -56,7 +56,7 @@ class DatePickerFragment(val ctx: Context, val dateDialogListener: DateDialogLis
         sb_year.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                tv_year.text = "Year: ${p1 + 1350}"
+                tv_year.text = "سال: ${p1 + 1350}"
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -68,7 +68,7 @@ class DatePickerFragment(val ctx: Context, val dateDialogListener: DateDialogLis
         sb_month.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                tv_month.text = "Month: ${p1 + 1}"
+                tv_month.text = "ماه: ${p1 + 1}"
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -80,7 +80,7 @@ class DatePickerFragment(val ctx: Context, val dateDialogListener: DateDialogLis
         sb_day.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                tv_day.text = "Day: ${p1 + 1}"
+                tv_day.text = "روز: ${p1 + 1}"
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
