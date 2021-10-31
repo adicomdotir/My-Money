@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ir.adicom.app.mymoney.MainActivity
 import ir.adicom.app.mymoney.R
 import ir.adicom.app.mymoney.db.AppDatabase
 import ir.adicom.app.mymoney.models.Category
@@ -82,5 +83,7 @@ class ExpenseHomeFragment : Fragment() {
         view.findViewById<FloatingActionButton>(R.id.fab_expense_add).setOnClickListener {
             navController.navigate(R.id.action_expenseHomeFragment_to_newExpenseFragment)
         }
+
+        (requireActivity() as MainActivity).supportActionBar?.title =  "لیست هزینه ها"
     }
 }

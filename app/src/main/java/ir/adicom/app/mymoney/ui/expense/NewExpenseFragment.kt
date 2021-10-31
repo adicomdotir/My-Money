@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.button.MaterialButton
+import ir.adicom.app.mymoney.MainActivity
 import ir.adicom.app.mymoney.R
 import ir.adicom.app.mymoney.db.AppDatabase
 import ir.adicom.app.mymoney.models.Category
@@ -63,8 +64,9 @@ class NewExpenseFragment : Fragment(), DatePickerFragment.DateDialogListener {
         btn_picker.setOnClickListener {
             DatePickerFragment(requireContext(), this)
                 .show(activity?.supportFragmentManager!!, null)
-
         }
+
+        (requireActivity() as MainActivity).supportActionBar?.title =  " هزینه جدید"
     }
 
     private fun btnCancelClick(view: View) {
@@ -78,7 +80,7 @@ class NewExpenseFragment : Fragment(), DatePickerFragment.DateDialogListener {
             val title = edt_expense_title.text.toString()
             val price = edt_expense_price.text.toString()
             if (title.isEmpty() || price.isEmpty()) {
-                Toast.makeText(activity, "Some field is empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, resources.getString(R.string.empty_message), Toast.LENGTH_SHORT).show()
             } else {
                 val expense = Expense(0, title, price.toLong(), 0, dateMillisecond)
                 val bundle = Bundle().apply {

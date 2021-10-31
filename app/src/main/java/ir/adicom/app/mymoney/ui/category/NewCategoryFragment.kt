@@ -5,12 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
+import ir.adicom.app.mymoney.MainActivity
 import ir.adicom.app.mymoney.R
 import ir.adicom.app.mymoney.models.Category
+import ir.adicom.app.mymoney.models.Expense
+import kotlinx.android.synthetic.main.fragment_new_expense.*
 
 
 class NewCategoryFragment : Fragment() {
@@ -35,15 +39,21 @@ class NewCategoryFragment : Fragment() {
         edtCategoryTitle = view.findViewById<TextInputLayout>(R.id.edt_category_title)
         btnCancelClick(view)
         btnSaveClick(view)
+
+        (requireActivity() as MainActivity).supportActionBar?.title =  "دسته جدید"
     }
 
     private fun btnSaveClick(view: View) {
         view.findViewById<MaterialButton>(R.id.btn_save).setOnClickListener {
             val title = edtCategoryTitle.editText?.text.toString()
-            val bundle = Bundle().apply {
-                putParcelable("Category", Category(0, title))
+            if (title.isEmpty()) {
+                Toast.makeText(activity, resources.getString(R.string.empty_message), Toast.LENGTH_SHORT).show()
+            } else {
+                val bundle = Bundle().apply {
+                    putParcelable("Category", Category(0, title))
+                }
+                navController.navigate(R.id.action_newCategoryFragment_to_categoryHomeFragment, bundle)
             }
-            navController.navigate(R.id.action_newCategoryFragment_to_categoryHomeFragment, bundle)
         }
     }
 

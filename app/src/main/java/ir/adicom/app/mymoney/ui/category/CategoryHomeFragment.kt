@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ir.adicom.app.mymoney.MainActivity
 import ir.adicom.app.mymoney.R
 import ir.adicom.app.mymoney.db.AppDatabase
 import ir.adicom.app.mymoney.ui.adapters.CategoryAdapter
@@ -58,6 +59,8 @@ class CategoryHomeFragment : Fragment() {
         view.findViewById<FloatingActionButton>(R.id.fab_category_add).setOnClickListener {
             navController.navigate(R.id.action_categoryHomeFragment_to_newCategoryFragment)
         }
+
+        (requireActivity() as MainActivity).supportActionBar?.title =  "لیست دسته ها"
     }
 
     override fun onCreateView(
