@@ -27,6 +27,8 @@ class CategoryHomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+         setHasOptionsMenu(true)
+
         val category = arguments?.getParcelable<Category>("Category")
         if (category != null) {
             MainScope().launch {
@@ -56,10 +58,6 @@ class CategoryHomeFragment : Fragment() {
             }
         )
 
-        view.findViewById<FloatingActionButton>(R.id.fab_category_add).setOnClickListener {
-            navController.navigate(R.id.action_categoryHomeFragment_to_newCategoryFragment)
-        }
-
         (requireActivity() as MainActivity).supportActionBar?.title =  "لیست دسته ها"
     }
 
@@ -69,5 +67,19 @@ class CategoryHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_category_home, container, false);
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_add -> {
+                navController.navigate(R.id.action_categoryHomeFragment_to_newCategoryFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

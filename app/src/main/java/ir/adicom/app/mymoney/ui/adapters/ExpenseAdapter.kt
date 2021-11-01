@@ -8,15 +8,25 @@ import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import ir.adicom.app.mymoney.R
 import ir.adicom.app.mymoney.models.Expense
+import kotlinx.android.synthetic.main.expense_item.view.*
 import saman.zamani.persiandate.PersianDate
+import java.text.NumberFormat
+import java.util.*
 
 class ExpenseAdapter(private var expenseList: List<Expense>): RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
     inner class ExpenseViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val tvExpenseTitle: TextView = itemView.findViewById(R.id.tv_expense_title)
 
         fun bind(expense: Expense) {
-            val dateStr = PersianDate(expense.date).toString()
-            tvExpenseTitle.text = "${expense.title} ${expense.price} ${dateStr}"
+            val persianDate = PersianDate(expense.date)
+            var dateStr = "${persianDate.shYear}/${persianDate.shMonth}/${persianDate.shDay}"
+            val priceWithFormat = NumberFormat.getNumberInstance(Locale.US)
+                .format(expense.price)
+                .replace(",", "،")
+            tvExpenseTitle.text = expense.title
+            itemView.tv_expense_price.text = priceWithFormat
+            itemView.tv_expense_date.text = dateStr
+            itemView.tv_category_title.text = expense.categoryId.toString()
         }
     }
 

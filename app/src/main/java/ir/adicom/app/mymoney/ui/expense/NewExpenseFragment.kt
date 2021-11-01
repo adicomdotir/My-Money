@@ -17,6 +17,7 @@ import ir.adicom.app.mymoney.db.AppDatabase
 import ir.adicom.app.mymoney.models.Category
 import ir.adicom.app.mymoney.models.Expense
 import ir.adicom.app.mymoney.ui.DatePickerFragment
+import ir.adicom.app.mymoney.utils.SeparateThousands
 import kotlinx.android.synthetic.main.fragment_date_picker.*
 import kotlinx.android.synthetic.main.fragment_new_expense.*
 import saman.zamani.persiandate.PersianDate
@@ -56,6 +57,9 @@ class NewExpenseFragment : Fragment(), DatePickerFragment.DateDialogListener {
             )
             spinner_category.setAdapter(adapter)
         })
+
+        edt_expense_price.addTextChangedListener(SeparateThousands(",", "."))
+
         btnSaveClick(view)
         btnCancelClick(view)
 
@@ -78,7 +82,7 @@ class NewExpenseFragment : Fragment(), DatePickerFragment.DateDialogListener {
     private fun btnSaveClick(view: View) {
         view.findViewById<MaterialButton>(R.id.btn_save).setOnClickListener {
             val title = edt_expense_title.text.toString()
-            val price = edt_expense_price.text.toString()
+            val price = edt_expense_price.text.toString().replace(",", "")
             if (title.isEmpty() || price.isEmpty()) {
                 Toast.makeText(activity, resources.getString(R.string.empty_message), Toast.LENGTH_SHORT).show()
             } else {

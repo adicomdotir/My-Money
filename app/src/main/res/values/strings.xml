@@ -11,4 +11,6 @@
     <string name="price">قیمت</string>
     <string name="empty_message">" فیلد های خالی رو پر کنید"</string>
     <string name="confirm">تایید</string>
+    <string name="add">افزودن</string>
+    <string name="no_data_available">" هیچ اطلاعات وجود ندارد"</string>
 </resources>

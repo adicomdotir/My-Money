@@ -2,9 +2,7 @@ package ir.adicom.app.mymoney.ui.expense
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -33,6 +31,8 @@ class ExpenseHomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
 
         appDatabase = context.let { AppDatabase.invoke(it!!) }
 
@@ -80,10 +80,20 @@ class ExpenseHomeFragment : Fragment() {
             }
         )
 
-        view.findViewById<FloatingActionButton>(R.id.fab_expense_add).setOnClickListener {
-            navController.navigate(R.id.action_expenseHomeFragment_to_newExpenseFragment)
-        }
-
         (requireActivity() as MainActivity).supportActionBar?.title =  "لیست هزینه ها"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_add -> {
+                navController.navigate(R.id.action_expenseHomeFragment_to_newExpenseFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
