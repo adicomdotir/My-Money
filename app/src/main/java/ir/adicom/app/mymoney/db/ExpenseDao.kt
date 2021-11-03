@@ -2,6 +2,7 @@ package ir.adicom.app.mymoney.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import ir.adicom.app.mymoney.models.ExpenseAndCategory
 import ir.adicom.app.mymoney.models.Expense
 
 @Dao
@@ -15,6 +16,10 @@ interface ExpenseDao {
     @Delete
     suspend fun deleteExpense(expense: Expense)
 
-    @Query("SELECT * FROM expenses ORDER BY id DESC ")
+    @Query("SELECT * FROM expenses ORDER BY date DESC ")
     fun getAllExpenses(): LiveData<List<Expense>>
+
+    @Transaction
+    @Query("SELECT * FROM expenses ORDER BY date DESC ")
+    fun getAllExpensesWithCategory(): LiveData<List<ExpenseAndCategory>>
 }

@@ -69,7 +69,7 @@ class ExpenseHomeFragment : Fragment() {
         rvExpense.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvExpense.adapter = expenseAdapter
 
-        appDatabase.getExpenseDao().getAllExpenses().observe(
+        appDatabase.getExpenseDao().getAllExpensesWithCategory().observe(
             viewLifecycleOwner,
             Observer {
                 if (it.isNotEmpty()) {
