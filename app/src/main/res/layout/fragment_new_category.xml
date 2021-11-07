@@ -63,5 +63,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_save"
         app:layout_constraintTop_toBottomOf="@+id/edt_category_title" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

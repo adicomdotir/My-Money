@@ -13,4 +13,7 @@
     <string name="confirm">تایید</string>
     <string name="add">افزودن</string>
     <string name="no_data_available">" هیچ اطلاعات وجود ندارد"</string>
+    <string name="delete">Delete</string>
+    <string name="yes">بلی</string>
+    <string name="no">" خیر"</string>
 </resources>

@@ -19,6 +19,9 @@ interface ExpenseDao {
     @Query("SELECT * FROM expenses ORDER BY date DESC ")
     fun getAllExpenses(): LiveData<List<Expense>>
 
+    @Query("SELECT 1 FROM expenses WHERE categoryId = :categoryId")
+    fun existCategoryIdOnExpense(categoryId: Int): Boolean
+
     @Transaction
     @Query("SELECT * FROM expenses ORDER BY date DESC ")
     fun getAllExpensesWithCategory(): LiveData<List<ExpenseAndCategory>>
