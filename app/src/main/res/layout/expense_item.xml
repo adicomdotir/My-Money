@@ -9,60 +9,78 @@
     app:cardElevation="2dp">
 
     <LinearLayout
-        android:padding="8dp"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:orientation="vertical"
+            android:padding="8dp"
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_expense_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/primary_text_light_nodisable"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:gravity="start"
-                tools:text="ناهار کباب" />
-            <TextView
-                android:id="@+id/tv_expense_price"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_expense_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/primary_text_light_nodisable"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="start"
+                    tools:text="ناهار کباب" />
+                <TextView
+                    android:id="@+id/tv_expense_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/primary_text_light_nodisable"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="start"
+                    tools:text="100,000  تومان" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/primary_text_light_nodisable"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:gravity="start"
-                tools:text="100,000  تومان" />
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_category_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/primary_text_light_nodisable"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:gravity="end"
+                    tools:text="غذا" />
+                <TextView
+                    android:id="@+id/tv_expense_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/primary_text_light_nodisable"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1  فروردین 1400" />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_width="48dp"
             android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_category_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/primary_text_light_nodisable"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:gravity="end"
-                tools:text="غذا" />
-            <TextView
-                android:id="@+id/tv_expense_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/primary_text_light_nodisable"
-                android:textSize="16sp"
-                android:gravity="end"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="1  فروردین 1400" />
+            <ImageView
+                android:id="@+id/iv_expense_delete"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_delete"
+                android:tint="@android:color/holo_red_light"
+                android:contentDescription="@string/delete" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

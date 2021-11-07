@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import ir.adicom.app.mymoney.R
+import ir.adicom.app.mymoney.models.Category
 import ir.adicom.app.mymoney.models.Expense
 import ir.adicom.app.mymoney.models.ExpenseAndCategory
 import kotlinx.android.synthetic.main.expense_item.view.*
@@ -14,7 +15,7 @@ import saman.zamani.persiandate.PersianDate
 import java.text.NumberFormat
 import java.util.*
 
-class ExpenseAdapter(private var expenseList: List<ExpenseAndCategory>): RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
+class ExpenseAdapter(private var expenseList: List<ExpenseAndCategory>, private val listener: OnExpenseDeleteListener): RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>() {
     inner class ExpenseViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val tvExpenseTitle: TextView = itemView.findViewById(R.id.tv_expense_title)
 
@@ -28,6 +29,9 @@ class ExpenseAdapter(private var expenseList: List<ExpenseAndCategory>): Recycle
             itemView.tv_expense_price.text = "$priceWithFormat  تومان "
             itemView.tv_expense_date.text = dateStr
             itemView.tv_category_title.text = expense.category.title
+            itemView.iv_expense_delete.setOnClickListener {
+                listener.onExpenseDelete(expense.expense)
+            }
         }
     }
 
@@ -51,4 +55,8 @@ class ExpenseAdapter(private var expenseList: List<ExpenseAndCategory>): Recycle
         notifyDataSetChanged()
     }
 
+}
+
+interface OnExpenseDeleteListener {
+    fun onExpenseDelete(expense: Expense)
 }

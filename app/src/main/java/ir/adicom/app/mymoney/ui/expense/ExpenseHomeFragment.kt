@@ -1,8 +1,11 @@
 package ir.adicom.app.mymoney.ui.expense
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -16,14 +19,12 @@ import ir.adicom.app.mymoney.db.AppDatabase
 import ir.adicom.app.mymoney.models.Category
 import ir.adicom.app.mymoney.models.Expense
 import ir.adicom.app.mymoney.ui.adapters.ExpenseAdapter
+import ir.adicom.app.mymoney.ui.adapters.OnExpenseDeleteListener
 import kotlinx.android.synthetic.main.fragment_expense_home.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.math.log
 
-class ExpenseHomeFragment : Fragment() {
+class ExpenseHomeFragment : Fragment(), OnExpenseDeleteListener {
     private lateinit var rvExpense: RecyclerView
     private lateinit var expenseAdapter: ExpenseAdapter
     private lateinit var navController: NavController
@@ -65,7 +66,7 @@ class ExpenseHomeFragment : Fragment() {
         navController =
             (activity?.supportFragmentManager?.findFragmentById(R.id.fragment_container_view) as NavHostFragment).navController
         rvExpense = view.findViewById(R.id.rv_expense)
-        expenseAdapter = ExpenseAdapter(listOf())
+        expenseAdapter = ExpenseAdapter(listOf(), this)
         rvExpense.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvExpense.adapter = expenseAdapter
 
@@ -95,5 +96,26 @@ class ExpenseHomeFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onExpenseDelete(expense: Expense) {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.setTitle("ایا مطمئن هستید؟")
+            builder.apply {
+                setPositiveButton(R.string.yes,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        CoroutineScope(Dispatchers.IO).launch {
+                            appDatabase.getExpenseDao().deleteExpense(expense)
+                        }
+                    })
+                setNegativeButton(R.string.no,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // User cancelled the dialog
+                    })
+            }
+            builder.create()
+        }
+        alertDialog?.show()
     }
 }
